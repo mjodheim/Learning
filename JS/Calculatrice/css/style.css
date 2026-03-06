@@ -1,0 +1,91 @@
+body{
+    justify-content: center;
+    margin: 20px;
+    background-color: lightblue;
+}
+
+#calculator{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: fit-content;
+}
+
+#buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    grid-template-rows: repeat(5, 60px);
+    border: solid 1px black;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+    background-color: lightslategray;
+}
+
+#display-mode:hover{
+    cursor: pointer;
+}
+
+#display-mode{
+    display: flex;
+    padding: 10px;
+    width: fit-content;
+    justify-content: right;
+    flex-direction: row-reverse;
+    margin : 5px;
+    border-radius: 10px;
+    border: none;
+    font-size: large;
+    font-weight: bold;
+    color: aliceblue;
+    background-color: lightslategray;
+}
+
+button{
+    margin : 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: aliceblue;
+}
+
+button:hover{
+    border: solid 1px black;
+}
+
+#display{
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: lightslategray;
+    color: aliceblue;
+}
+
+#btn-zero{
+    grid-column: span 2;
+}
+
+#btn-equal{
+    grid-row: span 2;
+}
+
+#btn-plus{
+    grid-row: span 2;
+}
+
+footer{
+    position: fixed;
+    bottom: 20px;
+}
+
+footer a{
+    color: #142d3a;
+}
+
+.btn-operator{
+    background-color: gold;
+}
