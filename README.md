@@ -8,7 +8,6 @@ It contains exercises, experiments and small projects created while studying dif
 
 The goal is to progressively build strong foundations in programming, backend development, frontend frameworks and modern DevOps practices.
 
----
 
 ## Repository Structure
 ```
@@ -25,7 +24,6 @@ Learning/
 ├── DevOps
 └── Cloud
 ```
----
 
 ## Topics Covered
 
@@ -66,7 +64,6 @@ This repository progressively covers the technologies studied during the trainin
 - Scrum
 - Secure application development
 
----
 
 ## Learning Philosophy
 
@@ -81,7 +78,6 @@ The purpose of this repository is to:
 
 Each folder represents a stage in the learning process.
 
----
 
 ## Technologies
 
