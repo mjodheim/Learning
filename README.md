@@ -1,71 +1,76 @@
-# Learning
+# 🚀 Learning
 
-This repository documents my journey learning **software development with .NET** as part of the training:
+Repository documenting my journey learning **software development with .NET** as part of the training:
 
-**Full Stack .NET Developer oriented toward Cybersecurity**
+> 🛡️ **Full Stack .NET Developer with a focus on Cybersecurity**
 
-It contains exercises, experiments and small projects created while studying different programming concepts and technologies throughout the program.
+This repository contains exercises, experiments and small projects created while studying different programming concepts and technologies throughout the program.
 
 The goal is to progressively build strong foundations in programming, backend development, frontend frameworks and modern DevOps practices.
 
+---
 
-## Repository Structure
+# 📂 Repository Structure
+
 ```
 Learning/
 │
 ├── CSharp-Procedural/
 │ Basic algorithmic exercises in C#
-|
-├── CSharp-OOP
-├── ASP.NET
-├── WebAPI
-├── Angular
-├── EntityFramework
-├── DevOps
-└── Cloud
+│
+├── CSharp-OOP/
+├── ASP.NET/
+├── WebAPI/
+├── Angular/
+├── EntityFramework/
+├── DevOps/
+└── Cloud/
 ```
 
-## Topics Covered
+---
+
+# 📚 Topics Covered
 
 This repository progressively covers the technologies studied during the training.
 
-### Programming Foundations
+## 🧠 Programming Foundations
 - Algorithmic thinking
 - C# fundamentals
 - Procedural programming
 - Object-Oriented Programming (OOP)
 
-### Data & Backend Development
+## 🗄️ Data & Backend Development
 - SQL (declarative and procedural)
 - ADO.NET
 - LINQ
 - Entity Framework Core
 - Dapper
 
-### Web Development
+## 🌐 Web Development
 - ASP.NET MVC
 - ASP.NET Web API
 
-### Frontend Development
+## 🎨 Frontend Development
 - JavaScript
 - Angular
 
-### DevOps & Cloud
+## ⚙️ DevOps & Cloud
 - Git
 - Azure DevOps
 - CI/CD pipelines
 - Docker
-- (Kubernetes)
+- Kubernetes
 - Azure Cloud
 
-### Software Engineering
+## 🏗️ Software Engineering
 - Testing in C#
 - UML
 - Scrum
 - Secure application development
 
+---
 
-## Learning Philosophy
+# 🧭 Learning Philosophy
 
 The purpose of this repository is to:
 
@@ -78,22 +83,24 @@ The purpose of this repository is to:
 
 Each folder represents a stage in the learning process.
 
+---
 
-## Technologies
+# 🛠️ Technologies
 
 Main technologies used in this repository:
 
-- **C#**
-- **.NET**
-- **ASP.NET**
-- **Angular**
-- **SQL**
-- **Azure**
-- **Docker**
-- **Git / Azure DevOps**
+- 💜 **C#**
+- ⚙️ **.NET**
+- 🌐 **ASP.NET**
+- 🅰️ **Angular**
+- 🗄️ **SQL**
+- ☁️ **Azure**
+- 🐳 **Docker**
+- 🔧 **Git / Azure DevOps**
 
+---
 
-## Author
+# 👨‍💻 Author
 
-Anthony Mets  
+**Anthony Mets**  
 Full Stack .NET Developer in training
