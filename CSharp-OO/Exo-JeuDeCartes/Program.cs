@@ -14,7 +14,7 @@ PaquetOrdinateur.Melanger();
 
 Console.Write("Indiquez votre prénom : ");
 string prenom = Console.ReadLine();
-Personne Joueur = new Personne(prenom ?? "Kévin");
+Personne Joueur = new Personne(prenom == "" ? "Kévin" : prenom);
 
 Personne Ordinateur = new Personne("Jarvis");
 
