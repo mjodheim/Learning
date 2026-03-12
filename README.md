@@ -11,7 +11,7 @@ The goal is to progressively build strong foundations in programming, backend de
 ---
 
 ## Repository Structure
-
+```
 Learning/
 │
 ├── CSharp-Procedural/
@@ -24,7 +24,7 @@ Learning/
 ├── EntityFramework
 ├── DevOps
 └── Cloud
-
+```
 ---
 
 ## Topics Covered
