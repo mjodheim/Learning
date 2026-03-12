@@ -1,20 +1,3 @@
 <Solution>
-  <Folder Name="/CalculRacineCarree/">
-    <Project Path="CalculRacineCarree/Exo-CalculRacineCarree.csproj" />
-  </Folder>
-  <Folder Name="/Exo-IBAN/">
-    <Project Path="Exo-IBAN/Exo-BanIban.csproj" />
-  </Folder>
-  <Project Path="Exo-Addition/Exo-Addition.csproj" />
-  <Project Path="Exo-ApplicationBancaire/Exo-ApplicationBancaire.csproj" />
-  <Project Path="Exo-CalculEcrit/Exo-CalculEcrit.csproj" />
-  <Project Path="Exo-CarteAltitudes/Exo-CarteAltitudes.csproj" />
-  <Project Path="Exo-DeplacerUnPion/Exo-DeplacerUnPion.csproj" />
-  <Project Path="Exo-Factorielle/Exo-Factorielle.csproj" />
-  <Project Path="Exo-Fibonacci/Exo-Fibonacci.csproj" />
-  <Project Path="Exo-NombresPremiers/Exo-NombresPremiers.csproj" />
-  <Project Path="Exo-NombresPremiersList/Exo-NombresPremiersList.csproj" />
-  <Project Path="Exo-NotesEleves/Exo-NotesEleves.csproj" />
-  <Project Path="Exo-TablesMultiplication/Exo-TablesMultiplication.csproj" />
-  <Project Path="Exo-TriALaVolee/Exo-TriALaVolee.csproj" />
+  <Project Path="Exo-JeuDeCartes/Exo-JeuDeCartes.csproj" Id="9497695f-67e1-425b-9910-3f9f00ccb3cd" />
 </Solution>
