@@ -92,7 +92,6 @@ Main technologies used in this repository:
 - **Docker**
 - **Git / Azure DevOps**
 
----
 
 ## Author
 
