@@ -1,16 +1,20 @@
 <Solution>
-  <Project Path="CalculRacineCarree/Exo-CalculRacineCarree.csproj" Id="cf48dad9-28de-439a-be22-32cfd1203985" />
-  <Project Path="Exo-Addition/Exo-Addition.csproj" Id="8dd24c74-e21d-4309-ba62-c205cfbf0760" />
-  <Project Path="Exo-ApplicationBancaire/Exo-ApplicationBancaire.csproj" Id="ddd5e49b-a7d1-4858-ba93-da242bc2b82d" />
-  <Project Path="Exo-Ban_Iban/Exo-BanIban.csproj" Id="37482b34-f9ba-4cea-9d5a-41120951ff22" />
-  <Project Path="Exo-CalculEcrit/Exo-CalculEcrit.csproj" Id="21b9e401-8202-4674-b272-323e67133c87" />
-  <Project Path="Exo-CarteAltitudes/Exo-CarteAltitudes.csproj" Id="12f4048a-71c1-4e72-8c59-98368870edde" />
-  <Project Path="Exo-DeplacerUnPion/Exo-DeplacerUnPion.csproj" Id="ac61db92-64be-47ad-9bf5-cb574ca8ac4d" />
-  <Project Path="Exo-Factorielle/Exo-Factorielle.csproj" Id="dbd7cde4-8ab3-40af-bd31-9cc46133ea89" />
-  <Project Path="Exo-Fibonacci/Exo-Fibonacci.csproj" Id="4d07b5a1-61fa-46fb-b803-f2309168582f" />
-  <Project Path="Exo-NombresPremiersList/Exo-NombresPremiersList.csproj" Id="17582d40-01c5-449a-b31e-591b83c3b6d6" />
-  <Project Path="Exo-Nombres_Premiers/Exo-NombresPremiers.csproj" Id="a13ab5ec-ab13-412d-840e-c423124c9130" />
-  <Project Path="Exo-NotesEleves/Exo-NotesEleves.csproj" Id="063acb9d-e456-4af3-8f82-8967d255ae43" />
-  <Project Path="Exo-Tables_Multiplication/Exo-TablesMultiplication.csproj" Id="3336628c-d5a1-462b-8141-a6398c823969" />
-  <Project Path="Exo-TriALaVolee/Exo-TriALaVolee.csproj" Id="f58b05ca-2819-487e-9822-1eeced9adda1" />
+  <Folder Name="/CalculRacineCarree/">
+    <Project Path="CalculRacineCarree/Exo-CalculRacineCarree.csproj" />
+  </Folder>
+  <Folder Name="/Exo-IBAN/">
+    <Project Path="Exo-IBAN/Exo-BanIban.csproj" />
+  </Folder>
+  <Project Path="Exo-Addition/Exo-Addition.csproj" />
+  <Project Path="Exo-ApplicationBancaire/Exo-ApplicationBancaire.csproj" />
+  <Project Path="Exo-CalculEcrit/Exo-CalculEcrit.csproj" />
+  <Project Path="Exo-CarteAltitudes/Exo-CarteAltitudes.csproj" />
+  <Project Path="Exo-DeplacerUnPion/Exo-DeplacerUnPion.csproj" />
+  <Project Path="Exo-Factorielle/Exo-Factorielle.csproj" />
+  <Project Path="Exo-Fibonacci/Exo-Fibonacci.csproj" />
+  <Project Path="Exo-NombresPremiers/Exo-NombresPremiers.csproj" />
+  <Project Path="Exo-NombresPremiersList/Exo-NombresPremiersList.csproj" />
+  <Project Path="Exo-NotesEleves/Exo-NotesEleves.csproj" />
+  <Project Path="Exo-TablesMultiplication/Exo-TablesMultiplication.csproj" />
+  <Project Path="Exo-TriALaVolee/Exo-TriALaVolee.csproj" />
 </Solution>
