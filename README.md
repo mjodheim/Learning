@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Learning
 
 This repository documents my journey learning **software development with .NET** as part of the training:
