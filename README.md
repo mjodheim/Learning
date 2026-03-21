@@ -1,133 +1,112 @@
-# 🚀 Learning
+# 📚 Learning – C# / .NET Training Repository
 
-Repository documenting my journey learning **software development with .NET** as part of the training:
+## 📌 Overview
 
-> 🛡️ **Full Stack .NET Developer with a focus on Cybersecurity**
+This repository contains my personal learning journey as I train to become a **.NET developer**.
 
-This repository contains exercises, experiments and small projects created while studying different programming concepts and technologies throughout the program.
+It is a structured workspace where I practice core programming concepts, explore new technologies, and progressively build more complex applications.
 
-The goal is to progressively build strong foundations in programming, backend development, frontend frameworks and modern DevOps practices.
-
----
-
-# 📂 Repository Structure
-```
-Learning/
-│
-├── CSharp-Procedural/
-│ Basic algorithmic exercises in C#
-│
-├── CSharp-OOP/
-│ Object-oriented programming exercises
-│
-├── ASP.NET/
-│ Web development with ASP.NET
-│
-├── WebAPI/
-│ REST API development
-│
-├── Angular/
-│ Frontend development
-│
-├── EntityFramework/
-│ Database access with EF Core
-│
-├── DevOps/
-│ CI/CD, Git and automation
-│
-└── Cloud/
-```
+The goal is not to create production-ready projects here, but to **develop strong foundations** in software development.
 
 ---
 
-# 📚 Topics Covered
+## 🎯 Objectives
 
-This repository progressively covers the technologies studied during the training.
-
-## 🧠 Programming Foundations
-
-- Algorithmic thinking
-- C# fundamentals
-- Procedural programming
-- Object-Oriented Programming (OOP)
+* Master **C# fundamentals**
+* Understand and apply **Object-Oriented Programming (OOP)**
+* Practice **algorithmic thinking**
+* Learn to structure code like real-world applications
+* Prepare for advanced topics such as **ASP.NET, APIs, and cloud development**
 
 ---
 
-## 🗄️ Data & Backend Development
+## 🧱 Repository Structure
 
-- SQL (declarative and procedural)
-- ADO.NET
-- LINQ
-- Entity Framework Core
-- Dapper
+This repository is organized by learning topics and exercises:
 
----
+### 🔹 CSharp-Procedural
 
-## 🌐 Web Development
+Introduction to programming using procedural paradigms:
 
-- ASP.NET MVC
-- ASP.NET Web API
+* Variables, conditions, loops
+* Basic algorithms
+* Console applications
 
 ---
 
-## 🎨 Frontend Development
+### 🔹 CSharp-OO
 
-- JavaScript
-- Angular
+Focus on object-oriented programming:
 
----
-
-## ⚙️ DevOps & Cloud
-
-- Git
-- Azure DevOps
-- CI/CD pipelines
-- Docker
-- Kubernetes
-- Azure Cloud
+* Classes and objects
+* Encapsulation
+* Inheritance and polymorphism
+* Practical exercises (e.g. card game)
 
 ---
 
-## 🏗️ Software Engineering
+### 🔹 GestBanque
 
-- Testing in C#
-- UML
-- Scrum
-- Secure application development
+First structured mini-project:
 
----
-
-# 🧭 Learning Philosophy
-
-The purpose of this repository is to:
-
-- practice problem solving
-- develop algorithmic thinking
-- write clean and maintainable code
-- understand real-world development workflows
-- explore cloud infrastructure and DevOps practices
-- integrate cybersecurity principles into development
-
-Each folder represents a stage in the learning process.
+* Basic domain modeling
+* Separation of concerns
+* Introduction to project organization
 
 ---
 
-# 🛠️ Technologies
+## 🚀 Learning Approach
 
-Main technologies used in this repository:
+This repository follows a progressive approach:
 
-- 💜 **C#**
-- ⚙️ **.NET**
-- 🌐 **ASP.NET**
-- 🅰️ **Angular**
-- 🗄️ **SQL**
-- ☁️ **Azure**
-- 🐳 **Docker**
-- 🔧 **Git / Azure DevOps**
+1. Understand the theory
+2. Apply it through small exercises
+3. Build mini-projects
+4. Refactor and improve code quality
+
+The focus is on **learning by doing** and continuously improving code structure and readability.
 
 ---
 
-# 👨‍💻 Author
+## 🧠 Key Concepts Practiced
 
-**Anthony Mets**  
-Full Stack .NET Developer in training
+* Object-Oriented Programming (OOP)
+* Code organization
+* Basic domain modeling
+* Validation and control flow
+* Clean and readable code practices
+
+---
+
+## 🔜 Next Steps
+
+Planned areas of progression:
+
+* ASP.NET Web API
+* Entity Framework Core
+* Angular (frontend)
+* Authentication & security basics
+* Docker & deployment
+* Azure fundamentals
+
+---
+
+## 🧪 Related Projects
+
+Some projects are developed in separate repositories to better reflect real-world structure:
+
+* **BrewTrack** → Domain-driven fermentation tracking project
+
+---
+
+## 🧑‍💻 Author
+
+Anthony Mets
+.NET Developer in training
+Founder of **Mjödheim**
+
+---
+
+## 📜 License
+
+This repository is for educational purposes and continuous learning.
