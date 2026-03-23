@@ -8,7 +8,7 @@ public class Courant : Compte
         set 
         {
             if (value < 0)
-                return; //Erreur!!!
+                throw new InvalidOperationException("La ligne de crédit doit être >= 0.");
 
             field = value; 
         }

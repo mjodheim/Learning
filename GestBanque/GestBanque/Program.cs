@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Exceptions;
 using Models.OperatorsExo;
 
 Celsius celsius = new Celsius() { Temperature = 30 };
@@ -33,25 +34,103 @@ Epargne epargne = new Epargne()
 banque.Ajouter(courant);
 banque.Ajouter(epargne);
 
-banque["00001"].Depot(-20);
-Console.WriteLine($"Solde après un dépot de -20 : {banque["00001"].Solde}");
+try
+{
+    banque["00001"].Depot(-20);
+    Console.WriteLine($"Solde après un dépot de -20 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
+try
+{
+    banque["00001"].Depot(200);
+    Console.WriteLine($"Solde après un dépot de 200 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00001"].Depot(200);
-Console.WriteLine($"Solde après un dépot de 200 : {banque["00001"].Solde}");
+try
+{
+    banque["00001"].Retrait(-20);
+    Console.WriteLine($"Solde après un retrait de -20 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00001"].Retrait(-20);
-Console.WriteLine($"Solde après un retrait de -20 : {banque["00001"].Solde}");
+try
+{
+    banque["00001"].Retrait(100);
+    Console.WriteLine($"Solde après un retrait de 100 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00001"].Retrait(100);
-Console.WriteLine($"Solde après un retrait de 100 : {banque["00001"].Solde}");
+try
+{
+    banque["00001"].Retrait(200);
+    Console.WriteLine($"Solde après un retrait de 200 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00001"].Retrait(200);
-Console.WriteLine($"Solde après un retrait de 200 : {banque["00001"].Solde}");
+try
+{
+    banque["00001"].Retrait(100);
+    Console.WriteLine($"Solde après un retrait de 100 : {banque["00001"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00001"].Retrait(100);
-Console.WriteLine($"Solde après un retrait de 100 : {banque["00001"].Solde}");
+try
+{
+    banque["00002"].Depot(2000);
+    Console.WriteLine($"Solde après un dépot de 2000 : {banque["00002"].Solde}");
+}
+catch (SoldeInsuffisantException e)
+{
+    Console.WriteLine(e.Message);
+}
+catch (ArgumentOutOfRangeException e)
+{
+    Console.WriteLine(e.Message);
+}
 
-banque["00002"].Depot(2000);
-Console.WriteLine($"Solde après un dépot de 2000 : {banque["00002"].Solde}");
+
 
 Console.WriteLine($"Avoir des comptes de {john.Prenom} {john.Nom} : {banque.AvoirDesComptes(john)}");

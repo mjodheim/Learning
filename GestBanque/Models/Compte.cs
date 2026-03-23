@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using Models.Exceptions;
+
+namespace Models
 {
     public abstract class Compte
     {
@@ -14,10 +16,7 @@
         public void Depot(double montant)
         {
             if (montant <= 0)
-            {
-                Console.WriteLine("Montant invalide");
-                return; //Erreur!!!
-            }
+                throw new ArgumentOutOfRangeException(nameof (montant), "Le montant doit être supérieur à 0.");
 
             Solde += montant;
         }
@@ -29,23 +28,14 @@
 
         protected void Retrait(double montant, double ligneDeCredit)
         {
-            if(ligneDeCredit < 0)
-            {
-                Console.WriteLine("Ligne de crédit invalide");
-                return; //Erreur!!!
-            }
+            if (ligneDeCredit < 0)
+                throw new ArgumentOutOfRangeException(nameof(ligneDeCredit), "La ligne de crédit ne peut pas être négative.");
 
             if (montant <= 0)
-            {
-                Console.WriteLine("Montant invalide");
-                return; //Erreur!!!
-            }
+                throw new ArgumentOutOfRangeException(nameof(montant), "Le montant doit être supérieur à 0.");
 
             if (Solde - montant < -ligneDeCredit)
-            {
-                Console.WriteLine("Solde insuffisant");
-                return; //Erreur!!!
-            }
+                throw new SoldeInsuffisantException("Solde insuffisant pour effectuer le retrait.");
 
             Solde -= montant;
         }
