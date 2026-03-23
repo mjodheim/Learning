@@ -2,7 +2,6 @@
 
 Repository documenting my progression through a **Full Stack .NET Developer training program with a cybersecurity focus**.
 
----
 
 ## 🎯 Purpose
 
@@ -14,7 +13,6 @@ The objective is to:
 - transition from basic coding to **real-world application development**
 - integrate **security, testing, and cloud practices** into development workflows
 
----
 
 ## 🚀 Training Path
 
@@ -46,14 +44,12 @@ This repository follows my training journey, which covers:
 - AI applied to development
 - Full stack individual project (.NET / Angular)
 
----
 
 ## 🧠 Vision
 
 This repository reflects a continuous progression:
 from learning fundamentals → to building structured applications → to developing production-ready full stack solutions.
 
----
 
 ## 🧑‍💻 Author
 
@@ -61,7 +57,6 @@ Anthony Mets
 .NET Developer in training
 Founder of **Mjödheim**
 
----
 
 ## 📜 License
 
