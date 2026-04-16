@@ -1,0 +1,15 @@
+@model ListeFilms.Models.Film
+
+@{
+    ViewBag.Title = $"Détails — {Model.Titre}";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Titre</h2>
+
+<ul>
+    <li><strong>Genre :</strong> @Model.Genre</li>
+    <li><strong>Année :</strong> @Model.Annee</li>
+</ul>
+
+<a class="btn btn-primary" asp-action="Index">Retour à la liste</a>

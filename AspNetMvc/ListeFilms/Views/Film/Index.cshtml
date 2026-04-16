@@ -1,0 +1,39 @@
+@model List<ListeFilms.Models.Film>
+
+@{
+    ViewBag.Title = "Liste des films";
+    Layout = "_Layout";
+}
+
+<h2 class="text-center text-primary">Liste des films — @ViewData["GenreActif"]</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Genre</th>
+                <th>Année</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var film in Model)
+            {
+                <tr>
+                    <td>@film.Titre</td>
+                    <td>@film.Genre</td>
+                    <td>@film.Annee</td>
+                    <td>
+                        <a class= "btn btn-primary" asp-controller="Film" asp-action="Details" asp-route-id="@film.Id">Détails</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-warning">Aucun film trouvé pour ce genre.</p>
+}

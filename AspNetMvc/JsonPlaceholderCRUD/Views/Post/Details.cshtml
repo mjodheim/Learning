@@ -1,0 +1,18 @@
+﻿@model JsonPlaceholderCRUD.Models.Post
+@{
+    ViewBag.Title = "Détails du post";
+    Layout = "_Layout";
+}
+
+<h2>Détails du post</h2>
+<div>
+    <ul>
+        <li>Intitulé du post actuel : @Model.Title</li>
+        <li>Id du post : @Model.Id</li>
+        <li>Id utilisateur : @Model.UserId</li>
+        <li>Contenu : 
+            <p>@Model.Body</p>
+        </li>
+    </ul>
+    <a class="btn btn-primary" asp-action="Index">Revenir à la page d'accueil</a>
+</div>

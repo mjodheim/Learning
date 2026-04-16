@@ -1,0 +1,27 @@
+﻿@model JsonPlaceholderCRUD.Models.Post
+@{
+    ViewBag.Title = "Édition d'un post";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["TitrePage"]</h2>
+
+<form class="row g-3" asp-action="Edit" method="post">
+    <div>
+        <label class="form-label" asp-for="Title"></label>
+        <input class="form-control" asp-for="Title" value="@Model.Title"/>
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label class="form-label" asp-for="Body"></label>
+        <input class="form-control" asp-for="Body" value="@Model.Body"/>
+        <span class="text-danger" asp-validation-for="Body"></span>
+    </div>
+    <div>
+        <label class="form-label" asp-for="UserId"></label>
+        <input class="form-control" asp-for="UserId" value="@Model.UserId"/>
+        <span class="text-danger" asp-validation-for="UserId"></span>
+    </div>
+    <button class="btn btn-primary" type="submit">Modifier</button>
+    <a class="btn btn-danger" asp-action="Index">Annuler</a>
+</form>
