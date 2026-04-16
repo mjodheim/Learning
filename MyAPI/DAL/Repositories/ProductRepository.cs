@@ -14,15 +14,24 @@ public class ProductRepository : IProductRepository
         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
 
-    public async Task<List<Product>> GetAllAsync()
+    public async Task<List<Product>> GetAllAsync(int page, int pageSize)
     {
         var products = new List<Product>();
 
         await using SqlConnection connection = new SqlConnection(_connectionString);
-        const string query = "SELECT Id, Name, Price FROM Products";
+        const string query = @"
+            SELECT Id, Name, Price 
+            FROM Products
+            ORDER BY Id DESC
+            OFFSET @offset ROWS
+            FETCH NEXT @pageSize ROWS ONLY";
 
         await using SqlCommand command = new SqlCommand(query, connection);
-
+        
+        int offset = (page - 1) * pageSize;
+        command.Parameters.AddWithValue("@offset", offset);
+        command.Parameters.AddWithValue("@pageSize", pageSize);
+        
         await connection.OpenAsync();
         await using SqlDataReader reader = await command.ExecuteReaderAsync();
 

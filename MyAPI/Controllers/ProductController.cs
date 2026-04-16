@@ -17,9 +17,12 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ProductResponse>>> GetAll()
+    public async Task<ActionResult<List<ProductResponse>>> GetAll(int page = 1, int pageSize = 10)
     {
-        var products = await _productService.GetAllProductsAsync();
+        if (page < 1) page = 1;
+        if (pageSize > 10) pageSize = 10;
+        
+        var products = await _productService.GetAllProductsAsync(page, pageSize);
         return Ok(products.Select(ProductMapper.ToResponse).ToList());
     }
 
