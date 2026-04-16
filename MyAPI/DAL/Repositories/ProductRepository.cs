@@ -14,24 +14,46 @@ public class ProductRepository : IProductRepository
         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
 
-    public async Task<List<Product>> GetAllAsync(int page, int pageSize)
+    public async Task<List<Product>> GetAllAsync(int page, int pageSize, decimal? minPrice, decimal? maxPrice, string? name)
     {
         var products = new List<Product>();
 
         await using SqlConnection connection = new SqlConnection(_connectionString);
-        const string query = @"
-            SELECT Id, Name, Price 
-            FROM Products
-            ORDER BY Id DESC
-            OFFSET @offset ROWS
-            FETCH NEXT @pageSize ROWS ONLY";
 
-        await using SqlCommand command = new SqlCommand(query, connection);
-        
+        var query = "SELECT Id, Name, Price FROM Products WHERE 1=1";
+
+        await using SqlCommand command = new SqlCommand();
+        command.Connection = connection;
+
+        if (minPrice.HasValue)
+        {
+            query += " AND Price >= @MinPrice";
+            command.Parameters.AddWithValue("@MinPrice", minPrice.Value);
+        }
+
+        if (maxPrice.HasValue)
+        {
+            query += " AND Price <= @MaxPrice";
+            command.Parameters.AddWithValue("@MaxPrice", maxPrice.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            query += " AND Name LIKE @Name";
+            command.Parameters.AddWithValue("@Name", $"%{name}%");
+        }
+
+        query += @"
+            ORDER BY Id DESC
+            OFFSET @Offset ROWS
+            FETCH NEXT @PageSize ROWS ONLY";
+
         int offset = (page - 1) * pageSize;
-        command.Parameters.AddWithValue("@offset", offset);
-        command.Parameters.AddWithValue("@pageSize", pageSize);
-        
+        command.Parameters.AddWithValue("@Offset", offset);
+        command.Parameters.AddWithValue("@PageSize", pageSize);
+
+        command.CommandText = query;
+
         await connection.OpenAsync();
         await using SqlDataReader reader = await command.ExecuteReaderAsync();
 

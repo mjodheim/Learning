@@ -13,9 +13,9 @@ public class ProductService : IProductService
         _productRepository = productRepository;
     }
 
-    public async Task<List<Product>> GetAllProductsAsync(int page, int pageSize)
+    public async Task<List<Product>> GetAllProductsAsync(int page, int pageSize, decimal? minPrice, decimal? maxPrice, string? name)
     {
-        return await _productRepository.GetAllAsync(page, pageSize);
+        return await _productRepository.GetAllAsync(page, pageSize, minPrice, maxPrice, name);
     }
 
     public async Task<Product> GetProductByIdAsync(int id)

@@ -4,7 +4,7 @@ namespace MyAPI.BLL.Interfaces;
 
 public interface IProductService
 {
-    Task<List<Product>> GetAllProductsAsync(int page, int pageSize);
+    Task<List<Product>> GetAllProductsAsync(int page, int pageSize, decimal? minPrice, decimal? maxPrice, string? name);
     Task<Product> GetProductByIdAsync(int id);
     Task<int> CreateProductAsync(Product product);
     Task UpdateProductAsync(Product product);
