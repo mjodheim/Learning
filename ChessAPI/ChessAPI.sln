@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{64FB21CF-B9FC-4558-BE03-6C876119665F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{A544F992-0F98-4E4D-B108-F5F3380D3DCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{5CFBF8C2-7FC2-497A-B5D5-434667706949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessAPI", "ChessAPI\ChessAPI.csproj", "{6BA75D1A-42BC-4EB7-B385-5F02FB6DA430}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64FB21CF-B9FC-4558-BE03-6C876119665F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FB21CF-B9FC-4558-BE03-6C876119665F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FB21CF-B9FC-4558-BE03-6C876119665F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FB21CF-B9FC-4558-BE03-6C876119665F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A544F992-0F98-4E4D-B108-F5F3380D3DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A544F992-0F98-4E4D-B108-F5F3380D3DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A544F992-0F98-4E4D-B108-F5F3380D3DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A544F992-0F98-4E4D-B108-F5F3380D3DCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFBF8C2-7FC2-497A-B5D5-434667706949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFBF8C2-7FC2-497A-B5D5-434667706949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFBF8C2-7FC2-497A-B5D5-434667706949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFBF8C2-7FC2-497A-B5D5-434667706949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA75D1A-42BC-4EB7-B385-5F02FB6DA430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA75D1A-42BC-4EB7-B385-5F02FB6DA430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA75D1A-42BC-4EB7-B385-5F02FB6DA430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA75D1A-42BC-4EB7-B385-5F02FB6DA430}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
