@@ -27,7 +27,7 @@ public class PlayerRepository : IPlayerRepository
         
         while (await reader.ReadAsync())
         {
-            players.Add(ToEntity(reader)); // Fonction en bas
+            players.Add(ToEntity(reader));
         }
         
         return players;

@@ -21,6 +21,6 @@ public class PlayerMapper
         Email = dto.Email,
         BirthDate = dto.BirthDate,
         Genre = dto.Genre,
-        Elo = 1200
+        Elo = dto.Elo
     };
 }
