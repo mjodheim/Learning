@@ -5,17 +5,20 @@ namespace BLL.Mappers;
 
 public class TournamentMapper
 {
-    public static Tournament ToDto(Tournament tournament) => new()
+    public static TournamentReadDto ToDto(Tournament tournament) => new()
     {
-        Id = tournament.Id,
         Name = tournament.Name,
         Location = tournament.Location,
         MinPlayers = tournament.MinPlayers,
         MaxPlayers = tournament.MaxPlayers,
         MinElo = tournament.MinElo,
         MaxElo = tournament.MaxElo,
-        WomenOnly =  tournament.WomenOnly,
-        RegistrationDeadline = tournament.RegistrationDeadline
+        Status = tournament.Status,
+        CurrentRound = tournament.CurrentRound,
+        WomenOnly = tournament.WomenOnly,
+        RegistrationDeadline = tournament.RegistrationDeadline,
+        CreatedAt = tournament.CreatedAt,
+        UpdatedAt = tournament.UpdatedAt
     };
     
     public static Tournament ToEntity(TournamentCreateDto dto) => new()
@@ -26,7 +29,7 @@ public class TournamentMapper
         MaxPlayers = dto.MaxPlayers,
         MinElo = dto.MinElo,
         MaxElo = dto.MaxElo,
-        WomenOnly =  dto.WomenOnly,
+        WomenOnly = dto.WomenOnly,
         RegistrationDeadline = dto.RegistrationDeadline
     };
 }

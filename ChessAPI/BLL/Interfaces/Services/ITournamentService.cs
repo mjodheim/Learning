@@ -9,4 +9,5 @@ public interface ITournamentService
     Task CreateTournament(TournamentCreateDto tournament);
     Task UpdateTournament(TournamentUpdateDto tournament);
     Task DeleteTournament(int id);
+    Task StartTournament(int id);
 }

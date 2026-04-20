@@ -23,7 +23,10 @@ builder.Services.AddScoped<IInscriptionRepository>(sp => new InscriptionReposito
 
 #region Services
 builder.Services.AddScoped<IPlayerService, PlayerService>();
-
+builder.Services.AddScoped<ITournamentService, TournamentService>();
+builder.Services.AddScoped<IInscriptionService, InscriptionService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 #endregion
 
 var app = builder.Build();
