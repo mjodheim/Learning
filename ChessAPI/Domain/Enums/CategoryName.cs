@@ -1,6 +1,6 @@
 namespace Domain.Enums;
 
-public enum CategoryEnums
+public enum CategoryName
 {
     U8 =  0,
     U10 = 1,

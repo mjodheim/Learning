@@ -27,13 +27,13 @@ public class MatchService : IMatchService
         if (players.Count < 2) throw new InvalidOperationException("Pas assez de joueurs pour générer des rencontres.");
 
         bool odd = players.Count % 2 != 0;
-        if (odd) players.Add(new Player { Id = -1 }); // Dummy player for bye
+        if (odd) players.Add(new Player { Id = -1 });
 
         int n = players.Count;
         int roundsPerCycle = n - 1;
         List<Match> matches = new();
 
-        // Cycle 1: Aller
+        // Cycle 1 : Aller
         for (int r = 0; r < roundsPerCycle; r++)
         {
             for (int i = 0; i < n / 2; i++)
@@ -49,8 +49,7 @@ public class MatchService : IMatchService
             RotatePlayers(players);
         }
 
-        // Cycle 2: Retour
-        // Reset players rotation or continue? Let's just swap colors and add to subsequent rounds
+        // Cycle 2 : Retour
         for (int r = 0; r < roundsPerCycle; r++)
         {
             for (int i = 0; i < n / 2; i++)
@@ -78,7 +77,7 @@ public class MatchService : IMatchService
 
     public async Task UpdateMatchResult(int matchId, MatchResult result)
     {
-        // On pourrait ajouter des validations ici (ex: vérifier que c'est la ronde courante)
+        // On pourrait ajouter des validations ici (ex : vérifier que c'est la ronde courante).
         await _matchRepository.UpdateMatchResult(matchId, result);
     }
 
