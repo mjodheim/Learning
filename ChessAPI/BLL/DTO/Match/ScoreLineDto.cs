@@ -1,6 +1,6 @@
-namespace Domain.Entities;
+namespace BLL.DTO.Match;
 
-public class ScoreLine
+public class ScoreLineDto
 {
     public string PlayerName { get; set; } = string.Empty;
     public int MatchesPlayed { get; set; }

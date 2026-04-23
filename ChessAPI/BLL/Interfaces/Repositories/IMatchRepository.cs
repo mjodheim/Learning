@@ -5,6 +5,7 @@ namespace BLL.Interfaces.Repositories;
 
 public interface IMatchRepository
 {
+    Task<Match?> GetMatchById(int matchId);
     Task<IEnumerable<Match>> GetMatchesByTournament(int tournamentId);
     Task<IEnumerable<Match>> GetMatchesByRound(int tournamentId, int round);
     Task CreateMatches(IEnumerable<Match> matches);

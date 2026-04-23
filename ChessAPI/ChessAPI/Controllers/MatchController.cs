@@ -23,7 +23,11 @@ public class MatchController : ControllerBase
             await _matchService.UpdateMatchResult(id, result);
             return Ok("Résultat mis à jour.");
         }
-        catch (Exception ex)
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
         }

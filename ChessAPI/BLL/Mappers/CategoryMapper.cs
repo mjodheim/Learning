@@ -7,6 +7,9 @@ public class CategoryMapper
 {
     public static CategoryReadDto ToDto(Category category) => new()
     {
-        Name = category.Name
+        Id = category.Id,
+        Name = category.Name,
+        MinAge = category.MinAge,
+        MaxAge = category.MaxAge
     };
 }

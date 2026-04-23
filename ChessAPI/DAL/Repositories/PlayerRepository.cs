@@ -49,6 +49,40 @@ public class PlayerRepository : IPlayerRepository
         return null;
     }
 
+    public async Task<bool> ExistsByPseudo(string pseudo, int? excludeId = null)
+    {
+        using SqlConnection connection = new(_connectionString);
+        await connection.OpenAsync();
+
+        var sql = excludeId.HasValue
+            ? "SELECT COUNT(1) FROM Players WHERE Pseudo = @Pseudo AND Id != @ExcludeId"
+            : "SELECT COUNT(1) FROM Players WHERE Pseudo = @Pseudo";
+
+        using SqlCommand command = new(sql, connection);
+        command.Parameters.AddWithValue("@Pseudo", pseudo);
+        if (excludeId.HasValue)
+            command.Parameters.AddWithValue("@ExcludeId", excludeId.Value);
+
+        return (int)(await command.ExecuteScalarAsync())! > 0;
+    }
+
+    public async Task<bool> ExistsByEmail(string email, int? excludeId = null)
+    {
+        using SqlConnection connection = new(_connectionString);
+        await connection.OpenAsync();
+
+        var sql = excludeId.HasValue
+            ? "SELECT COUNT(1) FROM Players WHERE Email = @Email AND Id != @ExcludeId"
+            : "SELECT COUNT(1) FROM Players WHERE Email = @Email";
+
+        using SqlCommand command = new(sql, connection);
+        command.Parameters.AddWithValue("@Email", email);
+        if (excludeId.HasValue)
+            command.Parameters.AddWithValue("@ExcludeId", excludeId.Value);
+
+        return (int)(await command.ExecuteScalarAsync())! > 0;
+    }
+
     public async Task CreatePlayer(Player player)
     {
         using SqlConnection connection = new(_connectionString);
@@ -81,6 +115,7 @@ public class PlayerRepository : IPlayerRepository
         command.Parameters.AddWithValue("@Email", player.Email);
         command.Parameters.AddWithValue("@BirthDate", player.BirthDate);
         command.Parameters.AddWithValue("@Genre", player.Genre);
+        command.Parameters.AddWithValue("@Id", player.Id);
 
         await command.ExecuteNonQueryAsync();
     }

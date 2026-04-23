@@ -33,8 +33,15 @@ public class PlayerController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreatePlayer(PlayerCreateDto dto)
     {
-        await _playerService.CreatePlayer(dto);
-        return Created();
+        try
+        {
+            await _playerService.CreatePlayer(dto);
+            return Created();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(ex.Message);
+        }
     }
 
     [HttpPut("{id}")]
@@ -42,8 +49,16 @@ public class PlayerController : ControllerBase
     {
         PlayerReadDto? player = await _playerService.GetPlayerById(id);
         if (player is null) return NotFound();
-        await _playerService.UpdatePlayer(id, dto);
-        return NoContent();
+
+        try
+        {
+            await _playerService.UpdatePlayer(id, dto);
+            return NoContent();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]

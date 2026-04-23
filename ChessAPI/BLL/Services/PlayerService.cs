@@ -30,9 +30,15 @@ public class PlayerService : IPlayerService
 
     public async Task CreatePlayer(PlayerCreateDto playerDto)
     {
+        if (await _playerRepository.ExistsByPseudo(playerDto.Pseudo))
+            throw new InvalidOperationException("Ce pseudo est déjà utilisé.");
+
+        if (await _playerRepository.ExistsByEmail(playerDto.Email))
+            throw new InvalidOperationException("Cet email est déjà utilisé.");
+
         Player player = PlayerMapper.ToEntity(playerDto);
         player.PasswordHash = BCrypt.Net.BCrypt.HashPassword(playerDto.Password);
-        
+
         await _playerRepository.CreatePlayer(player);
     }
 
@@ -40,6 +46,12 @@ public class PlayerService : IPlayerService
     {
         Player? player = await _playerRepository.GetPlayerById(id);
         if (player is null) return;
+
+        if (await _playerRepository.ExistsByPseudo(playerDto.Pseudo, excludeId: id))
+            throw new InvalidOperationException("Ce pseudo est déjà utilisé.");
+
+        if (await _playerRepository.ExistsByEmail(playerDto.Email, excludeId: id))
+            throw new InvalidOperationException("Cet email est déjà utilisé.");
 
         player.Pseudo = playerDto.Pseudo;
         player.Email = playerDto.Email;

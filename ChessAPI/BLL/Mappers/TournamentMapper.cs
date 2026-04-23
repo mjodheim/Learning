@@ -7,6 +7,7 @@ public class TournamentMapper
 {
     public static TournamentReadDto ToDto(Tournament tournament) => new()
     {
+        Id = tournament.Id,
         Name = tournament.Name,
         Location = tournament.Location,
         MinPlayers = tournament.MinPlayers,

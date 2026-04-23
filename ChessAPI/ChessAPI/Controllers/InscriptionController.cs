@@ -22,13 +22,13 @@ public class InscriptionController : ControllerBase
             await _inscriptionService.Register(request.TournamentId, request.PlayerId);
             return Ok("Joueur inscrit avec succès.");
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
         }
     }
 
@@ -39,6 +39,10 @@ public class InscriptionController : ControllerBase
         {
             await _inscriptionService.Unregister(request.TournamentId, request.PlayerId);
             return Ok("Joueur désinscrit avec succès.");
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (InvalidOperationException ex)
         {

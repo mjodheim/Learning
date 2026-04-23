@@ -1,3 +1,4 @@
+using BLL.DTO.Match;
 using BLL.Interfaces.Repositories;
 using BLL.Interfaces.Services;
 using Domain.Entities;
@@ -77,42 +78,62 @@ public class MatchService : IMatchService
 
     public async Task UpdateMatchResult(int matchId, MatchResult result)
     {
-        // On pourrait ajouter des validations ici (ex : vérifier que c'est la ronde courante).
+        var match = await _matchRepository.GetMatchById(matchId);
+        if (match == null) throw new KeyNotFoundException("Rencontre introuvable.");
+
+        var tournament = await _tournamentRepository.GetTournamentById(match.TournamentId);
+        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
+
+        if (match.Round != tournament.CurrentRound)
+            throw new InvalidOperationException("Seule une rencontre de la ronde courante peut être modifiée.");
+
         await _matchRepository.UpdateMatchResult(matchId, result);
     }
 
     public async Task NextRound(int tournamentId)
     {
         var tournament = await _tournamentRepository.GetTournamentById(tournamentId);
-        if (tournament == null) throw new Exception("Tournoi introuvable.");
+        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
 
-        var matches = await _matchRepository.GetMatchesByRound(tournamentId, tournament.CurrentRound);
-        if (matches.Any(m => m.Result == MatchResult.Pending))
+        if (tournament.Status != TournamentStatus.InProgress)
+            throw new InvalidOperationException("Le tournoi n'est pas en cours.");
+
+        var currentMatches = await _matchRepository.GetMatchesByRound(tournamentId, tournament.CurrentRound);
+        if (currentMatches.Any(m => m.Result == MatchResult.Pending))
             throw new InvalidOperationException("Tous les matchs de la ronde courante ne sont pas terminés.");
 
-        tournament.CurrentRound++;
+        var nextMatches = await _matchRepository.GetMatchesByRound(tournamentId, tournament.CurrentRound + 1);
+        if (!nextMatches.Any())
+        {
+            tournament.Status = TournamentStatus.Closed;
+        }
+        else
+        {
+            tournament.CurrentRound++;
+        }
+
         tournament.UpdatedAt = DateTime.Now;
         await _tournamentRepository.UpdateTournament(tournament);
     }
 
-    public async Task<IEnumerable<ScoreLine>> GetTournamentScores(int tournamentId, int round)
+    public async Task<IEnumerable<ScoreLineDto>> GetTournamentScores(int tournamentId, int round)
     {
         var allMatches = (await _matchRepository.GetMatchesByTournament(tournamentId))
             .Where(m => m.Round <= round && m.Result != MatchResult.Pending);
-        
+
         var players = await _inscriptionRepository.GetPlayersByTournament(tournamentId);
-        var scores = new List<ScoreLine>();
+        var scores = new List<ScoreLineDto>();
 
         foreach (var player in players)
         {
             var pMatches = allMatches.Where(m => m.Player1Id == player.Id || m.Player2Id == player.Id).ToList();
-            
-            int wins = pMatches.Count(m => (m.Player1Id == player.Id && m.Result == MatchResult.WhiteWin) || 
+
+            int wins = pMatches.Count(m => (m.Player1Id == player.Id && m.Result == MatchResult.WhiteWin) ||
                                            (m.Player2Id == player.Id && m.Result == MatchResult.BlackWin));
             int draws = pMatches.Count(m => m.Result == MatchResult.Draw);
             int losses = pMatches.Count - wins - draws;
 
-            scores.Add(new ScoreLine
+            scores.Add(new ScoreLineDto
             {
                 PlayerName = player.Pseudo,
                 MatchesPlayed = pMatches.Count,

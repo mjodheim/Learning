@@ -23,6 +23,6 @@ public class PlayerCreateDto
     
     public Genre Genre { get; set; }
     
-    [Range(1000, 3500, ErrorMessage = "Elo must be between 800 and 3500")]
-    public int Elo { get; set; }
+    [Range(1000, 3500, ErrorMessage = "Elo must be between 1000 and 3500")]
+    public int? Elo { get; set; }
 }

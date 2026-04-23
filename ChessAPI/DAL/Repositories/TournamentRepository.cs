@@ -49,19 +49,21 @@ public class TournamentRepository : ITournamentRepository
         return null;
     }
 
-    public async Task CreateTournament(Tournament tournament)
+    public async Task<int> CreateTournament(Tournament tournament)
     {
         using SqlConnection connection = new(_connectionString);
         await connection.OpenAsync();
 
         using SqlCommand command = new(
-            @"INSERT INTO Tournaments (Name, Location, MinPlayers, MaxPlayers, MinElo, MaxElo, Status, CurrentRound, WomenOnly, RegistrationDeadline, CreatedAt, UpdatedAt) 
-              VALUES (@Name, @Location, @MinPlayers, @MaxPlayers, @MinElo, @MaxElo, @Status, @CurrentRound, @WomenOnly, @RegistrationDeadline, @CreatedAt, @UpdatedAt)",
+            @"INSERT INTO Tournaments (Name, Location, MinPlayers, MaxPlayers, MinElo, MaxElo, Status, CurrentRound, WomenOnly, RegistrationDeadline, CreatedAt, UpdatedAt)
+              VALUES (@Name, @Location, @MinPlayers, @MaxPlayers, @MinElo, @MaxElo, @Status, @CurrentRound, @WomenOnly, @RegistrationDeadline, @CreatedAt, @UpdatedAt);
+              SELECT CAST(SCOPE_IDENTITY() AS int);",
             connection);
 
         AddParameters(command, tournament);
 
-        await command.ExecuteNonQueryAsync();
+        var result = await command.ExecuteScalarAsync();
+        return result is int id ? id : Convert.ToInt32(result);
     }
 
     public async Task UpdateTournament(Tournament tournament)

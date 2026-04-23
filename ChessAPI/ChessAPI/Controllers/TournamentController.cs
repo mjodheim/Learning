@@ -1,6 +1,5 @@
 using BLL.DTO.Tournament;
 using BLL.Interfaces.Services;
-using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChessAPI.Controllers;
@@ -47,6 +46,24 @@ public class TournamentController : ControllerBase
         }
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTournament(int id, TournamentUpdateDto dto)
+    {
+        try
+        {
+            await _tournamentService.UpdateTournament(id, dto);
+            return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTournament(int id)
     {
@@ -54,6 +71,10 @@ public class TournamentController : ControllerBase
         {
             await _tournamentService.DeleteTournament(id);
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
         }
         catch (InvalidOperationException ex)
         {
@@ -69,21 +90,14 @@ public class TournamentController : ControllerBase
             await _tournamentService.StartTournament(id);
             return Ok("Le tournoi a été démarré.");
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
         }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
-    }
-
-    [HttpGet("{id}/scores/{round}")]
-    public async Task<IActionResult> GetScores(int id, int round)
-    {
-        var scores = await _matchService.GetTournamentScores(id, round);
-        return Ok(scores);
     }
 
     [HttpPost("{id}/next-round")]
@@ -94,9 +108,20 @@ public class TournamentController : ControllerBase
             await _matchService.NextRound(id);
             return Ok("Passage à la ronde suivante effectué.");
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (InvalidOperationException ex)
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("{id}/scores/{round}")]
+    public async Task<IActionResult> GetScores(int id, int round)
+    {
+        var scores = await _matchService.GetTournamentScores(id, round);
+        return Ok(scores);
     }
 }

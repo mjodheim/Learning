@@ -27,10 +27,10 @@ public class InscriptionService : IInscriptionService
     public async Task Register(int tournamentId, int playerId)
     {
         var tournament = await _tournamentRepository.GetTournamentById(tournamentId);
-        if (tournament == null) throw new Exception("Tournoi introuvable.");
+        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
 
         var player = await _playerRepository.GetPlayerById(playerId);
-        if (player == null) throw new Exception("Joueur introuvable.");
+        if (player == null) throw new KeyNotFoundException("Joueur introuvable.");
 
         var registeredPlayers = (await _inscriptionRepository.GetPlayersByTournament(tournamentId)).ToList();
 
@@ -72,11 +72,14 @@ public class InscriptionService : IInscriptionService
     public async Task Unregister(int tournamentId, int playerId)
     {
         var tournament = await _tournamentRepository.GetTournamentById(tournamentId);
-        if (tournament == null) throw new Exception("Tournoi introuvable.");
+        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
 
-        // Seuls les tournois qui n’ont pas commencé permettent la désinscription
         if (tournament.Status != TournamentStatus.WaitingForPlayers)
             throw new InvalidOperationException("Impossible de se désinscrire : le tournoi a déjà commencé.");
+
+        var registeredPlayers = await _inscriptionRepository.GetPlayersByTournament(tournamentId);
+        if (!registeredPlayers.Any(p => p.Id == playerId))
+            throw new InvalidOperationException("Le joueur n’est pas inscrit à ce tournoi.");
 
         await _inscriptionRepository.UnregisterPlayer(tournamentId, playerId);
     }

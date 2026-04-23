@@ -15,6 +15,22 @@ public class MatchRepository : IMatchRepository
         _connectionString = connectionString;
     }
 
+    public async Task<Match?> GetMatchById(int matchId)
+    {
+        using SqlConnection connection = new(_connectionString);
+        await connection.OpenAsync();
+
+        using SqlCommand command = new("SELECT * FROM Matches WHERE Id = @Id", connection);
+        command.Parameters.AddWithValue("@Id", matchId);
+
+        using SqlDataReader reader = await command.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+            return ToEntity(reader);
+
+        return null;
+    }
+
     public async Task<IEnumerable<Match>> GetMatchesByTournament(int tournamentId)
     {
         List<Match> matches = new();

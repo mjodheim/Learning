@@ -14,15 +14,14 @@ public class TournamentCreateDto
     public int MinPlayers { get; set; }
     public int MaxPlayers { get; set; }
     
-    [Range(1000, 3500, ErrorMessage = "Elo must be between 1000 and 3500")]
     public int MinElo { get; set; }
-    
-    [Range(1000, 3500, ErrorMessage = "Elo must be between 1000 and 3500")]
     public int MaxElo { get; set; }
     
     
     public bool WomenOnly { get; set; }
-    
+
     [DataType(DataType.Date)]
     public DateTime RegistrationDeadline { get; set; }
+
+    public List<int> CategoryIds { get; set; } = new();
 }
