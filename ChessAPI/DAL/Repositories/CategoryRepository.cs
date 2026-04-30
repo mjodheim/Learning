@@ -2,6 +2,7 @@ using System.Data;
 using BLL.Interfaces.Repositories;
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.Repositories;
 
@@ -9,9 +10,9 @@ public class CategoryRepository : ICategoryRepository
 {
     private readonly string _connectionString;
     
-    public CategoryRepository(string connectionString)
+    public CategoryRepository(IConfiguration config)
     {
-        _connectionString = connectionString;
+        _connectionString = config.GetConnectionString("DefaultConnection");
     }
 
     public async Task<IEnumerable<Category>> GetCategories()

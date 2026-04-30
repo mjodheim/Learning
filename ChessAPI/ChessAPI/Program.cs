@@ -15,11 +15,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 #region Repositories
 
-builder.Services.AddScoped<IPlayerRepository>(sp => new PlayerRepository(connectionString));
-builder.Services.AddScoped<IMatchRepository>(sp => new MatchRepository(connectionString));
-builder.Services.AddScoped<ITournamentRepository>(sp => new TournamentRepository(connectionString));
-builder.Services.AddScoped<ICategoryRepository>(sp => new CategoryRepository(connectionString));
-builder.Services.AddScoped<IInscriptionRepository>(sp => new InscriptionRepository(connectionString));
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IInscriptionRepository, InscriptionRepository>();
 #endregion
 
 #region Services

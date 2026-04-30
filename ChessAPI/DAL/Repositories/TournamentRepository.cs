@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.Repositories;
 
@@ -10,9 +11,9 @@ public class TournamentRepository : ITournamentRepository
 {
     private readonly string _connectionString;
     
-    public TournamentRepository(string connectionString)
+    public TournamentRepository(IConfiguration config)
     {
-        _connectionString = connectionString;
+        _connectionString = config.GetConnectionString("DefaultConnection");
     }
 
     public async Task<IEnumerable<Tournament>> GetTournaments()
