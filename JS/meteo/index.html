@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Météo</title>
+	<script src="/assets/js/script.js" defer></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="min-vh-100 d-flex align-items-center py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12">
+
+				<!-- En-tête -->
+				<div class="text-center">
+					<h1>Météo</h1>
+				</div>
+
+				<!-- Formulaire -->
+				<div class="card shadow border-0 rounded-4">
+					<div class="card-body">
+						<form id="formulaire-meteo">
+							<div class="mb-4">
+								<label class="form-label">Ville</label>
+								<input type="text" class="form-control form-control-lg" id="ville" placeholder="Bruxelles, Paris, ect." required>
+							</div>
+							<div class="mb-4">
+								<label class="form-label">Code du pays (Optionnel)</label>
+								<input type="text" class="form-control form-control-lg text-uppercase"  id="pays" placeholder="BE" maxlength="2">
+							</div>
+							<button type="submit" class="btn btn-primary btn-lg w-100 py-3" id="boutton-recherche">
+								<span id="text-boutton">Rechercher</span>
+							</button>
+						</form>
+					</div>
+				</div>
+
+				<!-- Résultat -->
+				<div id="carte-resultat" class="card shadow border-0 rounded-4 d-none">
+					<div id="contenu-resultat" class="card-body p-5">
+
+					</div>
+				</div>
+
+				<!-- Erreur -->
+				<div id="alerte-erreur" class="alert alert-danger mt-4 d-none"></div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

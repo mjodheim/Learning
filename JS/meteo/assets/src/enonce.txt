@@ -1,0 +1,20 @@
+# Exo 05 - Application météo
+
+## Objectif
+Créer une page web qui permet à l'utilisateur d'obtenir la météo d'une ville.
+
+L'utilisateur doit avoir un formulaire qui permet d'encoder : 
+- Le nom de la ville (Obligatoire)
+- Le nom du pays
+
+Une fois la recherche effectué, afficher les informations suivantes : 
+- Le nom de la ville et le code du pays
+- La temperature
+- La météo (en francais)
+- (BONUS) L'icone de la météo
+
+## Web API
+Pour l'exercice, utiliser le service `current` de `Open Weather Map`.  
+Créer un compte, vous avez besoin d'une clef API.
+
+Lien de la documentation : https://openweathermap.org/api/current

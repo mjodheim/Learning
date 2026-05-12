@@ -1,0 +1,4 @@
+/* Styles spécifiques au composant racine si nécessaire */
+main {
+  min-height: 60vh;
+}
