@@ -1,4 +1,3 @@
-using BLL.Interfaces;
 using BLL.Interfaces.Repositories;
 using BLL.Interfaces.Services;
 using BLL.Services;
@@ -10,8 +9,6 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 #region Repositories
 

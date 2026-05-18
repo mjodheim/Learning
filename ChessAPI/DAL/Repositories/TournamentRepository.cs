@@ -13,7 +13,7 @@ public class TournamentRepository : ITournamentRepository
     
     public TournamentRepository(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        _connectionString = config.GetConnectionString("DefaultConnection")!;
     }
 
     public async Task<IEnumerable<Tournament>> GetTournaments()

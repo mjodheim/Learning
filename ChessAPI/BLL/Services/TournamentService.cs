@@ -2,7 +2,6 @@ using BLL.DTO.Tournament;
 using BLL.Interfaces.Repositories;
 using BLL.Interfaces.Services;
 using BLL.Mappers;
-using BLL.DTO.Category;
 using Domain.Entities;
 using Domain.Enums;
 
@@ -47,7 +46,7 @@ public class TournamentService : ITournamentService
     public async Task<TournamentReadDto?> GetTournamentById(int id)
     {
         var tournament = await _tournamentRepository.GetTournamentById(id);
-        if (tournament == null) return null;
+        if (tournament is null) return null;
 
         var dto = TournamentMapper.ToDto(tournament);
 
@@ -92,7 +91,7 @@ public class TournamentService : ITournamentService
     public async Task UpdateTournament(int id, TournamentUpdateDto tournamentDto)
     {
         var tournament = await _tournamentRepository.GetTournamentById(id);
-        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
+        if (tournament is null) throw new KeyNotFoundException("Tournoi introuvable.");
 
         if (tournament.Status != TournamentStatus.WaitingForPlayers)
             throw new InvalidOperationException("Seuls les tournois en attente peuvent être modifiés.");

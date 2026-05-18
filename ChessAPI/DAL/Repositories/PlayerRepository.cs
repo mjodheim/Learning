@@ -13,7 +13,7 @@ public class PlayerRepository : IPlayerRepository
     
     public PlayerRepository(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        _connectionString = config.GetConnectionString("DefaultConnection")!;
     }
     
     public async Task<IEnumerable<Player>> GetPlayers()

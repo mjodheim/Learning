@@ -65,7 +65,8 @@ public class PlayerController : ControllerBase
     public async Task<IActionResult> DeletePlayer(int id)
     {
         PlayerReadDto? player = await _playerService.GetPlayerById(id);
-        if (player is null) return NotFound();
+        if (player is null)  return NotFound();
+
         await _playerService.DeletePlayer(id);
         return NoContent();
     }

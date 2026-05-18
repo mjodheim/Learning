@@ -13,7 +13,7 @@ public class MatchRepository : IMatchRepository
     
     public MatchRepository(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        _connectionString = config.GetConnectionString("DefaultConnection")!;
     }
 
     public async Task<Match?> GetMatchById(int matchId)

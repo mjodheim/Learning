@@ -1,4 +1,4 @@
-using BLL.Interfaces;
+using BLL.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChessAPI.Controllers;

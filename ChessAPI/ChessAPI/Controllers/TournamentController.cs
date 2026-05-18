@@ -121,6 +121,10 @@ public class TournamentController : ControllerBase
     [HttpGet("{id}/scores/{round}")]
     public async Task<IActionResult> GetScores(int id, int round)
     {
+        // On vérifie que le tournoi n'est pas null
+        TournamentReadDto? tournament = await _tournamentService.GetTournamentById(id);
+        if (tournament is null) return NotFound();
+        
         var scores = await _matchService.GetTournamentScores(id, round);
         return Ok(scores);
     }

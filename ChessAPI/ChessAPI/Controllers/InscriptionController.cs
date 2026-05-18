@@ -1,3 +1,4 @@
+using BLL.DTO.Inscription;
 using BLL.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ public class InscriptionController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] InscriptionRequest request)
+    public async Task<IActionResult> Register([FromBody] InscriptionCreateDto request)
     {
         try
         {
@@ -33,7 +34,7 @@ public class InscriptionController : ControllerBase
     }
 
     [HttpPost("unregister")]
-    public async Task<IActionResult> Unregister([FromBody] InscriptionRequest request)
+    public async Task<IActionResult> Unregister([FromBody] InscriptionCreateDto request)
     {
         try
         {
@@ -50,5 +51,3 @@ public class InscriptionController : ControllerBase
         }
     }
 }
-
-public record InscriptionRequest(int TournamentId, int PlayerId);

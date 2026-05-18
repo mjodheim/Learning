@@ -46,6 +46,3 @@ Le projet suit une architecture en couches (N-Tier) pour assurer une séparation
 - Victoire : 1 point
 - Égalité : 0,5 point
 - Défaite : 0 point
-
----
-*Ce projet a été corrigé et optimisé avec l'assistance d'**Antigravity** (Gemini 3 Flash).*

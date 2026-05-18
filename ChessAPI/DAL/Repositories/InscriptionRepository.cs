@@ -13,7 +13,7 @@ public class InscriptionRepository : IInscriptionRepository
     
     public InscriptionRepository(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("DefaultConnection");
+        _connectionString = config.GetConnectionString("DefaultConnection")!;
     }
 
     public async Task<IEnumerable<Player>> GetPlayersByTournament(int tournamentId)

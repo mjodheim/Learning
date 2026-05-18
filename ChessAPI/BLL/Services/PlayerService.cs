@@ -24,7 +24,7 @@ public class PlayerService : IPlayerService
     public async Task<PlayerReadDto?> GetPlayerById(int id)
     {
         Player? player = await _playerRepository.GetPlayerById(id);
-        if (player is null) return null;
+        if (player is null) return null; // Pourquoi pas de throw ici ?
         return PlayerMapper.ToDto(player);
     }
 
@@ -45,7 +45,7 @@ public class PlayerService : IPlayerService
     public async Task UpdatePlayer(int id, PlayerUpdateDto playerDto)
     {
         Player? player = await _playerRepository.GetPlayerById(id);
-        if (player is null) return;
+        if (player is null) throw new KeyNotFoundException("Joueur introuvable.");
 
         if (await _playerRepository.ExistsByPseudo(playerDto.Pseudo, excludeId: id))
             throw new InvalidOperationException("Ce pseudo est déjà utilisé.");
@@ -63,6 +63,8 @@ public class PlayerService : IPlayerService
 
     public async Task DeletePlayer(int id)
     {
+        Player? player =  await _playerRepository.GetPlayerById(id);
+        if (player is null) throw new KeyNotFoundException("Joueur introuvable.");
         await _playerRepository.DeletePlayer(id);
     }
 }

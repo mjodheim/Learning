@@ -1,6 +1,7 @@
 using BLL.DTO.Match;
 using BLL.Interfaces.Repositories;
 using BLL.Interfaces.Services;
+using BLL.Mappers;
 using Domain.Entities;
 using Domain.Enums;
 
@@ -22,11 +23,33 @@ public class MatchService : IMatchService
         _inscriptionRepository = inscriptionRepository;
     }
 
+    public async Task<MatchReadDto?> GetMatchById(int matchId)
+    {
+        Match? match = await _matchRepository.GetMatchById(matchId);
+        if (match is null) return null;
+        return MatchMapper.ToDto(match);
+    }
+
+    public async Task<IEnumerable<MatchReadDto>> GetMatchesByTournament(int tournamentId)
+    {
+        IEnumerable<Match> matchs = await _matchRepository.GetMatchesByTournament(tournamentId);
+        return matchs.Select(MatchMapper.ToDto);
+    }
+
+    public async Task<IEnumerable<MatchReadDto>> GetMatchesByRound(int tournamentId, int round)
+    {
+        IEnumerable<Match> matches = await _matchRepository.GetMatchesByRound(tournamentId, round);
+        return matches.Select(MatchMapper.ToDto);
+    }
+    
     public async Task GenerateRoundRobinMatches(int tournamentId)
     {
         var players = (await _inscriptionRepository.GetPlayersByTournament(tournamentId)).ToList();
         if (players.Count < 2) throw new InvalidOperationException("Pas assez de joueurs pour générer des rencontres.");
 
+        var matchs = (await _matchRepository.GetMatchesByTournament(tournamentId)).ToList();
+        if (matchs.Count > 0) throw new InvalidOperationException("Il existe déjà des matchs pour ce tournoi.");
+        
         bool odd = players.Count % 2 != 0;
         if (odd) players.Add(new Player { Id = -1 });
 
@@ -78,11 +101,13 @@ public class MatchService : IMatchService
 
     public async Task UpdateMatchResult(int matchId, MatchResult result)
     {
+        if (result == MatchResult.Pending) throw new InvalidOperationException("Initialisation d'un match impossible manuellement.");
+        
         var match = await _matchRepository.GetMatchById(matchId);
-        if (match == null) throw new KeyNotFoundException("Rencontre introuvable.");
+        if (match is null) throw new KeyNotFoundException("Rencontre introuvable.");
 
         var tournament = await _tournamentRepository.GetTournamentById(match.TournamentId);
-        if (tournament == null) throw new KeyNotFoundException("Tournoi introuvable.");
+        if (tournament is null) throw new KeyNotFoundException("Tournoi introuvable.");
 
         if (match.Round != tournament.CurrentRound)
             throw new InvalidOperationException("Seule une rencontre de la ronde courante peut être modifiée.");

@@ -1,6 +1,6 @@
 using BLL.DTO.Category;
 
-namespace BLL.Interfaces;
+namespace BLL.Interfaces.Services;
 
 public interface ICategoryService
 {

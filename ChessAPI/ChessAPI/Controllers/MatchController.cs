@@ -1,3 +1,4 @@
+using BLL.DTO.Match;
 using BLL.Interfaces.Services;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,28 @@ public class MatchController : ControllerBase
     public MatchController(IMatchService matchService)
     {
         _matchService = matchService;
+    }
+    
+    [HttpGet("{matchId}")]
+    public async Task<IActionResult> GetMatchById(int matchId)
+    {
+        MatchReadDto? match = await _matchService.GetMatchById(matchId);
+        if (match is null) return NotFound();
+        return Ok(match);
+    }
+
+    [HttpGet("tournament/{tournamentId}/matches")]
+    public async Task<IActionResult> GetMatchsByTournament(int tournamentId)
+    {
+        IEnumerable<MatchReadDto> matchs = await _matchService.GetMatchesByTournament(tournamentId);
+        return Ok(matchs);
+    }
+    
+    [HttpGet("tournament/{tournamentId}/matches/{roundId}")]
+    public async Task<IActionResult> GetMatchsByRound(int tournamentId, int roundId)
+    {
+        IEnumerable<MatchReadDto> matchs = await _matchService.GetMatchesByRound(tournamentId, roundId);
+        return Ok(matchs);
     }
 
     [HttpPut("{id}/result")]
