@@ -1,0 +1,10 @@
+@if (player.value(); as player) {
+    <div>
+        <h2>{{ player.pseudo }}</h2>
+        <p>Email: {{ player.email }}</p>
+        <p>Elo: {{ player.elo }}</p>
+        <p>Genre: {{ player.genre }}</p>
+    </div>
+} @else {
+    <p>Loading...</p>
+}
