@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+### Fichiers .iml ###
+*.iml
+
 # dotenv files
 .env
 
