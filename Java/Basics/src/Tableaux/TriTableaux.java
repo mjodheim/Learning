@@ -16,10 +16,10 @@ public class TriTableaux {
 
         // Remplissage des deux premiers tableaux
         for (int i = 0; i < tab1.length; i++) {
-            tab1[i] = random.nextInt(100);
+            tab1[i] = random.nextInt(101);
         }
         for (int i = 0; i < tab2.length; i++) {
-            tab2[i] = random.nextInt(100);
+            tab2[i] = random.nextInt(101);
         }
 
         // Remplissage du troisième tableau et tri à la volée
@@ -38,6 +38,8 @@ public class TriTableaux {
                 tab3[curseur] = tab3[curseur-1];
                 curseur--;
             }
+
+            tab3[curseur] = valeur;
         }
 
         // Affichage du tableau trié
