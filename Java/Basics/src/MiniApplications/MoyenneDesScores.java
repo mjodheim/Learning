@@ -1,16 +1,18 @@
+package MiniApplications;
+
 import java.util.Scanner;
 
 public class MoyenneDesScores {
-    static void run(Scanner sc){
+    public static void run(Scanner sc){
         int nbJoueurs;
         float moyenne = 0;
-        float tabScores[] = new float [10];
+        float[] tabScores = new float [10];
         String saisie;
         boolean saisieValide;
 
         // Récupération du nombre de joueurs
         do{
-            System.out.println("Nombre de joueurs: (max 10)");
+            IO.print("Nombre de joueurs (max 10): ");
             nbJoueurs = sc.nextInt();
         } while (nbJoueurs < 1 || nbJoueurs > 10);
 
@@ -22,7 +24,7 @@ public class MoyenneDesScores {
                 try {
                     saisie = sc.next();
                     tabScores[i] = Float.parseFloat(saisie.trim().replace(',','.')); // pour clavier belge
-                    moyenne += Float.parseFloat(saisie.trim().replace(',','.'));
+                    moyenne += tabScores[i];
                     saisieValide = true;
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("Erreur d'encodage.");
@@ -32,6 +34,6 @@ public class MoyenneDesScores {
 
         // Calcul et affichage de la moyenne des joueurs
         moyenne /= tabScores.length;
-        System.out.println("Moyenne des scores: " + moyenne);
+        IO.print("Moyenne des scores: " + moyenne);
     }
 }

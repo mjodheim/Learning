@@ -1,9 +1,11 @@
+package Tableaux;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class DistributeurDeBoissons {
-    static void run (Scanner sc){
+    public static void run (Scanner sc){
         int choix;
         String boisson = "";
 
@@ -13,7 +15,7 @@ public class DistributeurDeBoissons {
         stock.put("Fanta", 5);
 
         do {
-            System.out.println("""
+            IO.print("""
                 === Distributeur de boissons ===
                 1. Coca
                 2. Sprite
@@ -29,15 +31,15 @@ public class DistributeurDeBoissons {
                     break;
                 case 3: boisson = "Fanta";
                     break;
-                case 0: System.out.println("Retour au menu principal...");
+                case 0: IO.print("Retour au menu principal...");
                     break;
                 default: boisson = "";
             }
-            if (boisson == "") break;
+            if (boisson.isEmpty()) break;
 
             // Cas du distributeur vide
             if (stock.values().stream().allMatch(x -> x == 0)) {
-                System.out.println("Le distributeur est vide, veuillez réapprovisionner");
+                IO.print("Le distributeur est vide, veuillez réapprovisionner");
                 break;
             }
 

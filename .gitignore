@@ -17,6 +17,15 @@ appsettings.json
 *.userosscache
 *.sln.docstates
 
+### VS Code ###
+.vscode/
+
+### IntelliJ ###
+.idea/
+
+### Dossier out ###
+out/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

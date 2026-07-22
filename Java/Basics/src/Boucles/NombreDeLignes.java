@@ -1,13 +1,15 @@
+package Boucles;
+
 import java.util.Scanner;
 
 public class NombreDeLignes {
-    static void run (Scanner sc){
+    public static void run (Scanner sc){
         String saisie;
         int nbLignes, count = 0;
 
         sc.nextLine(); // Consomme le retour à la ligne restant
 
-        System.out.println("Veuillez entrer un nombre de lignes à afficher (max 20): ");
+        System.out.print("Veuillez entrer un nombre de lignes à afficher (max 20): ");
         saisie = sc.nextLine();
 
         try {
@@ -22,14 +24,13 @@ public class NombreDeLignes {
                     nbEtoiles++;
                 } while (nbEtoiles <= count);
 
-                System.out.println();
                 count++;
             } while(count < nbLignes);
 
         } catch (NumberFormatException e) {
-            System.out.printf("Erreur : nombre positif inférieur ou égal à 20 attendu\n", e.getMessage());
+            System.err.printf("Erreur %s : nombre positif inférieur ou égal à 20 attendu\n", e.getMessage());
         }
 
-        System.out.println("Retour au menu principal...");
+        System.out.print("Retour au menu principal...");
     }
 }
