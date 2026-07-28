@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class PlusOuMoins {
     public static void run (Scanner sc){
         int nbUser;
-        String message = "";
+        String message;
 
         // Initialisation random du nbComputer
         Random rand = new Random();

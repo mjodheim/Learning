@@ -47,6 +47,6 @@ public class TriTableaux {
             result.append(element).append(" | ");
         }
 
-        System.out.println(result);
+        System.out.print(result);
     }
 }

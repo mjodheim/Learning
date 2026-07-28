@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.Arrays;
+
 public class Tableau {
     private Tableau (){
 
@@ -7,15 +9,21 @@ public class Tableau {
 
     public static void afficherTableau(String[] tab){
         StringBuilder result  = new StringBuilder();
-        for (int i = 0; i < tab.length; i++){
-            result.append(tab[i]);
+        for (String s : tab) {
+            result.append(s);
         }
-        System.out.println(result.toString());
+        System.out.print(result);
     }
 
     public static void initialiserTableau (String[] tab, String valeur){
-        for (int i = 0; i < tab.length; i++){
-            tab[i] = valeur;
-        }
+        Arrays.fill(tab, valeur);
     }
+
+    public static int  getIndex (String[] tab, String valeur){
+        for (int i = 0; i < tab.length; i++){
+            if (tab[i].equals(valeur)) return i;
+        }
+        return -1;
+    }
+
 }

@@ -23,9 +23,10 @@ public class Boucles {
                 1
             );
 
-            switch (choix) {
-                case 1 -> NombreDeLignes.run(scanner);
-                default -> System.out.println("Retour au menu principal...");
+            if (choix == 1) {
+                NombreDeLignes.run(scanner);
+            } else {
+                System.out.println("Retour au menu principal...");
             }
         } while (choix != 0);
     }

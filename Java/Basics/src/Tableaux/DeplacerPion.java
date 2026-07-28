@@ -43,9 +43,7 @@ public class DeplacerPion {
                         Tableau.afficherTableau(tab);
                     } else Tableau.afficherTableau(tab);
                 }
-                case "q" -> {
-                    System.out.println("Retour au menu précédent...");
-                }
+                case "q" -> System.out.println("Retour au menu précédent...");
                 default -> {
                     System.out.print("Commande invalide.");
                     System.out.print("Déplacement : g = gauche, d = droite, q = quitter : ");
