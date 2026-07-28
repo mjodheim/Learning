@@ -2,6 +2,7 @@ package Tableaux;
 
 import Utils.Tableau;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class DeplacerPion {
         String move;
 
         // Remplissage du tableau avec "_"
-        Tableau.initialiserTableau(tab,"_");
+        Arrays.fill(tab, "_");
 
         // placement du "pion" dans le tableau
         tab[index] = "o";
