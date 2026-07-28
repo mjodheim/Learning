@@ -46,33 +46,6 @@ L'objectif n'est pas de présenter un produit unique, mais de rendre visible un 
 | **[Chess — projet Full Stack](./ChessAPI)** | **[ChessAPI](./ChessAPI)** gère les joueurs, tournois, inscriptions, matchs et scores ; **[ChessClient](./ChessClient)** fournit l'interface Angular. | Architecture N-Tier, repositories, services, DTO, règles métier, API REST, routing et consommation HTTP.               |
 | **[Java](./Java/Basics)**                   | Onze exercices console répartis entre les boucles, les calculs, les mini-applications et les tableaux, accessibles depuis un menu commun.             | Syntaxe, conditions, boucles, méthodes, tableaux, saisie utilisateur, classes utilitaires et organisation en packages. |
 
-### Exercices Java actuels
-
-Le projet **[Java Basics](./Java/Basics)** est organisé autour d'un menu principal donnant accès à quatre catégories.
-
-#### Boucles
-
-- Nombre de lignes
-
-#### Calculs
-
-- Calcul d'une puissance
-- Tables de multiplication
-
-#### Mini-applications
-
-- Moyenne des scores
-- Jeu du plus ou moins
-- Système de connexion
-
-#### Tableaux
-
-- Distributeur de boissons
-- Inversion d'un tableau
-- Tableau de dix entiers
-- Tri de deux tableaux d'entiers aléatoires
-- Déplacement d'un pion dans un tableau
-
 ---
 
 ## 🇬🇧 English
@@ -108,33 +81,6 @@ It is not intended to present a single product. Instead, it makes the learning p
 | **[Angular](./Angular)**                     | A discovery project and a task manager built with components, routes, and a service.                                                                          | TypeScript, standalone components, binding, services, injection, and lazy loading.                           |
 | **[Chess — Full Stack project](./ChessAPI)** | **[ChessAPI](./ChessAPI)** manages players, tournaments, registrations, matches, and scores; **[ChessClient](./ChessClient)** provides the Angular interface. | N-Tier architecture, repositories, services, DTOs, business rules, REST APIs, routing, and HTTP consumption. |
 | **[Java](./Java/Basics)**                    | Eleven console exercises divided into loops, calculations, mini-applications, and arrays, available from a shared menu.                                       | Syntax, conditions, loops, methods, arrays, user input, utility classes, and package-based organisation.     |
-
-### Current Java exercises
-
-The **[Java Basics](./Java/Basics)** project is organized around a main menu providing access to four categories.
-
-#### Loops
-
-- Number of lines
-
-#### Calculations
-
-- Power calculation
-- Multiplication tables
-
-#### Mini-applications
-
-- Average score calculator
-- Higher or lower game
-- Login system
-
-#### Arrays
-
-- Drink dispenser
-- Array reversal
-- Ten-integer array
-- Sorting two arrays of random integers
-- Moving a pawn inside an array
 
 ---
 
