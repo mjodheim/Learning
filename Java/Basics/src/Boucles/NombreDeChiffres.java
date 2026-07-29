@@ -15,7 +15,8 @@ public final class NombreDeChiffres {
             "Erreur : veuillez entrer un nombre entier valide."
         );
 
-        int valeurAbsolue = Math.abs(nombre);
+        // On passe par un long poue éviter le cas limite
+        long valeurAbsolue = Math.abs((long) nombre);
         int nombreDeChiffres = valeurAbsolue == 0 ? 1 : 0;
 
         while (valeurAbsolue > 0) {
