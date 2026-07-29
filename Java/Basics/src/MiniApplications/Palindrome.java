@@ -12,10 +12,10 @@ public final class Palindrome {
         String saisie = scanner.nextLine().trim();
 
         /* Nettoyage du texte avant la vérification du palindrome :
-        * 1. passage en minuscules pour ignorer la casse ;
-        * 2. normalisation Unicode NFD pour séparer les lettres de leurs accents ;
-        * 3. suppression des accents avec \p{M} ;
-        * 4. suppression des espaces, de la ponctuation et des caractères spéciaux.
+        * 1. passage en minuscules pour ignorer la casse
+        * 2. normalisation Unicode NFD pour séparer les lettres de leurs accents
+        * 3. suppression des accents avec \p{M}
+        * 4. suppression des espaces, de la ponctuation et des caractères spéciaux
         */
         String texte = Normalizer.normalize(saisie.toLowerCase(), Normalizer.Form.NFD)
             .replaceAll("\\p{M}", "")
