@@ -1,36 +1,24 @@
 package Boucles;
 
+import Utils.Saisie;
+
 import java.util.Scanner;
 
-public class NombreDeLignes {
-    public static void run (Scanner sc){
-        String saisie;
-        int nbLignes, count = 0;
+public final class NombreDeLignes {
+    private NombreDeLignes() {
+    }
 
-        sc.nextLine(); // Consomme le retour à la ligne restant
+    public static void run(Scanner scanner) {
+        int nombreDeLignes = Saisie.lireEntier(
+            scanner,
+            "Veuillez entrer un nombre de lignes à afficher (max 20) : ",
+            "Erreur : veuillez entrer un nombre compris entre 1 et 20.",
+            1,
+            20
+        );
 
-        System.out.print("Veuillez entrer un nombre de lignes à afficher (max 20): ");
-        saisie = sc.nextLine();
-
-        try {
-            nbLignes = Integer.parseInt(saisie);
-            if (nbLignes < 1 || nbLignes > 20) throw new NumberFormatException();
-
-            do {
-                int nbEtoiles = 0;
-
-                do {
-                    System.out.print("*");
-                    nbEtoiles++;
-                } while (nbEtoiles <= count);
-
-                count++;
-            } while(count < nbLignes);
-
-        } catch (NumberFormatException e) {
-            System.err.printf("Erreur %s : nombre positif inférieur ou égal à 20 attendu\n", e.getMessage());
+        for (int ligne = 1; ligne <= nombreDeLignes; ligne++) {
+            System.out.println("*".repeat(ligne));
         }
-
-        System.out.print("Retour au menu principal...");
     }
 }
