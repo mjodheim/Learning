@@ -1,22 +1,33 @@
 package MiniApplications;
 
+import java.text.Normalizer;
 import java.util.Scanner;
 
-public class Palindrome {
+public final class Palindrome {
+    private Palindrome() {
+    }
+
     public static void run(Scanner scanner) {
-        String mot, result;
+        System.out.print("Entrez un mot ou une phrase : ");
+        String saisie = scanner.nextLine().trim();
+
+        String texte = Normalizer.normalize(saisie.toLowerCase(), Normalizer.Form.NFD)
+            .replaceAll("\\p{M}", "")
+            .replaceAll("[^a-z0-9]", "");
+
+        if (texte.isEmpty()) {
+            System.out.println("Aucun caractère à analyser.");
+            return;
+        }
+
         boolean palindrome = true;
-
-        System.out.print("Entrez votre mot: ");
-        mot = scanner.nextLine();
-
-        for (int i = 0; i <= mot.length()/2; i++) {
-            if(mot.charAt(i) != mot.charAt(mot.length()-i-1)) {
+        for (int i = 0; i < texte.length() / 2; i++) {
+            if (texte.charAt(i) != texte.charAt(texte.length() - i - 1)) {
                 palindrome = false;
+                break;
             }
         }
-        
-        result = palindrome ? " est" : " n'est pas";
-        System.out.print(mot + result + " un palindrome.");
+
+        System.out.printf("%s %s un palindrome.%n", saisie, palindrome ? "est" : "n'est pas");
     }
 }

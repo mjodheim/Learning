@@ -1,42 +1,61 @@
 package Calculs;
 
+import Utils.Saisie;
+
 import java.util.Scanner;
 
-public class TableMultiplication {
-    public static void run (Scanner sc) {
+public final class TableMultiplication {
+    private TableMultiplication() {
+    }
+
+    public static void run(Scanner scanner) {
         int choix;
 
         do {
-            IO.print("""
+            System.out.print("""
                 === Menu des tables de multiplication ===
                 1. Table au choix
                 2. Toutes les tables de 1 à 9
                 0. Quitter
                 """);
-            choix = sc.nextInt();
+
+            choix = Saisie.lireEntier(
+                scanner,
+                "Votre choix : ",
+                "Choix invalide.",
+                0,
+                2
+            );
+
             switch (choix) {
-                case 1: choix(sc);
-                case 2: simple();
-                case 0: IO.println("Retour au menu principal...");
+                case 1 -> afficherTableAuChoix(scanner);
+                case 2 -> afficherToutesLesTables();
+                default -> System.out.println("Retour au menu principal...");
             }
         } while (choix != 0);
     }
 
-    public static void choix (Scanner sc){
-        int choix;
-        IO.print("Quelle table veux-tu afficher ?");
-        choix = sc.nextInt();
-        for (int i = 1; i <= 10; i++) {
-            System.out.printf("%d * %d = %d \n", i, choix, (i * choix));
+    private static void afficherTableAuChoix(Scanner scanner) {
+        int table = Saisie.lireEntier(
+            scanner,
+            "Quelle table veux-tu afficher ? ",
+            "Veuillez entrer un nombre entier."
+        );
+
+        afficherTable(table);
+    }
+
+    private static void afficherToutesLesTables() {
+        System.out.println("--- Tables de multiplication de 1 à 9 ---");
+        for (int table = 1; table <= 9; table++) {
+            afficherTable(table);
+            System.out.println();
         }
     }
 
-    public static void simple (){
-        IO.println("--- Tables de multiplication de 1 à 9 ---");
-        for (int i = 1; i < 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                System.out.printf("%d * %d = %d \n", i, j, (i * j));
-            }
+    private static void afficherTable(int table) {
+        for (int multiplicateur = 1; multiplicateur <= 10; multiplicateur++) {
+            System.out.printf("%d × %d = %d%n", table, multiplicateur, table * multiplicateur);
         }
     }
 }

@@ -1,25 +1,25 @@
 package Boucles;
 
+import java.text.Normalizer;
 import java.util.Scanner;
 
-public class NombreDeVoyelles {
+public final class NombreDeVoyelles {
+    private NombreDeVoyelles() {
+    }
+
     public static void run(Scanner scanner) {
-        String mot;
-        int nbVoyelles = 0;
-        String voyelles = "aeiouy";
+        System.out.print("Entrez votre mot ou votre phrase : ");
+        String texte = scanner.nextLine().trim().toLowerCase();
+        String texteNormalise = Normalizer.normalize(texte, Normalizer.Form.NFD)
+            .replaceAll("\\p{M}", "");
 
-        System.out.print("Entrez votre mot: ");
-        mot = scanner.nextLine().toLowerCase();
-
-        // Pour chaque voyelle
-        for (int i = 0; i < voyelles.length(); i++) {
-            // Pour chaque lettre du mot
-            for (int j = 0; j < mot.length(); j++) {
-                if (mot.charAt(j) == voyelles.charAt(i))
-                    nbVoyelles++;
+        int nombreDeVoyelles = 0;
+        for (int i = 0; i < texteNormalise.length(); i++) {
+            if ("aeiouy".indexOf(texteNormalise.charAt(i)) >= 0) {
+                nombreDeVoyelles++;
             }
         }
 
-        System.out.print(mot + " contient " + nbVoyelles + "voyelle(s).");
+        System.out.printf("%s contient %d voyelle(s).%n", texte, nombreDeVoyelles);
     }
 }

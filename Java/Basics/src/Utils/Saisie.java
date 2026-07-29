@@ -1,12 +1,10 @@
 package Utils;
 
-// Classe utilitaire qui ne contient que des méthodes statiques → 'final' et constructeur 'private' obligatoire
-
 import java.util.Scanner;
 import java.util.function.IntPredicate;
 
 public final class Saisie {
-    private  Saisie() {
+    private Saisie() {
         // Empêche l'instanciation
     }
 
@@ -14,6 +12,7 @@ public final class Saisie {
         while (true) {
             System.out.print(message);
             String saisie = scanner.nextLine().trim();
+
             try {
                 int valeur = Integer.parseInt(saisie);
                 if (condition.test(valeur)) {
@@ -27,21 +26,28 @@ public final class Saisie {
     }
 
     public static int lireEntier(Scanner scanner, String message, String messageErreur) {
-        return lireEntier(
-            scanner,
-            message,
-            _ -> true,
-            messageErreur
-        );
+        return lireEntier(scanner, message, valeur -> true, messageErreur);
     }
 
     public static int lireEntier(Scanner scanner, String message, String messageErreur, int min, int max) {
-
         return lireEntier(
             scanner,
             message,
             valeur -> valeur >= min && valeur <= max,
             messageErreur
         );
+    }
+
+    public static float lireFlottant(Scanner scanner, String message, String messageErreur) {
+        while (true) {
+            System.out.print(message);
+            String saisie = scanner.nextLine().trim().replace(',', '.');
+
+            try {
+                return Float.parseFloat(saisie);
+            } catch (NumberFormatException e) {
+                System.out.println(messageErreur);
+            }
+        }
     }
 }

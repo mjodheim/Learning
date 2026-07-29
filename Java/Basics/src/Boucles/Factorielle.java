@@ -1,29 +1,26 @@
 package Boucles;
 
-import java.util.InputMismatchException;
+import Utils.Saisie;
+
 import java.util.Scanner;
 
-public class Factorielle {
+public final class Factorielle {
+    private Factorielle() {
+    }
+
     public static void run(Scanner scanner) {
-        int nb;
-        double result = 1;
-        boolean saisieValide = false;
+        int nombre = Saisie.lireEntier(
+            scanner,
+            "Entrez un nombre entier positif (0 à 20) : ",
+            valeur -> valeur >= 0 && valeur <= 20,
+            "Erreur : veuillez entrer un entier compris entre 0 et 20."
+        );
 
-        do {
-            try {
-                System.out.print("Entrez un nombre entier positif: ");
-                nb = scanner.nextInt();
+        long resultat = 1;
+        for (int i = 2; i <= nombre; i++) {
+            resultat *= i;
+        }
 
-                int i = nb;
-                while (i <= 1) {
-                    result *= i;
-                    i--;
-                }
-                System.out.print("La factorielle de " + i + " vaut " + result);
-                saisieValide = true;
-            } catch (InputMismatchException e) {
-                System.out.println("Erreur: " + e.getMessage());
-            }
-        } while(!saisieValide);
+        System.out.printf("La factorielle de %d vaut %d.%n", nombre, resultat);
     }
 }
