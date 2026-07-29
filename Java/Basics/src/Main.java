@@ -1,5 +1,6 @@
 import Boucles.Boucles;
 import Calculs.Calculs;
+import Matrices.Matrices;
 import MiniApplications.MiniApplications;
 import Tableaux.Tableaux;
 import Utils.Saisie;
@@ -18,6 +19,7 @@ void main() {
             2. Calculs
             3. Mini applications
             4. Tableaux
+            5. Matrices
             0. Quitter
             """);
 
@@ -26,7 +28,7 @@ void main() {
             "",
             "Choix invalide, veuillez ré-essayer...",
             0,
-            4
+            5
         );
 
         switch (choix) {
@@ -34,6 +36,7 @@ void main() {
             case 2 -> Calculs.run(scanner);
             case 3 -> MiniApplications.run(scanner);
             case 4 -> Tableaux.run(scanner);
+            case 5 -> Matrices.run(scanner);
             default -> IO.println("Merci, à bientôt !");
         }
     } while (choix != 0);

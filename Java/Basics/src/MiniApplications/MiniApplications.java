@@ -14,6 +14,7 @@ public class MiniApplications {
                 1. Moyenne des scores
                 2. Plus ou moins ?
                 3. Système de connexion
+                4. Palindrome
                 0. Revenir au menu principal
                 """);
 
@@ -22,13 +23,14 @@ public class MiniApplications {
                 "",
                 "Choix invalide, veuillez ré-essayer...",
                 0,
-                3
+                4
             );
 
             switch (choix) {
                 case 1 -> MoyenneDesScores.run(scanner);
                 case 2 -> PlusOuMoins.run(scanner);
                 case 3 -> SystemeDeConnexion.run(scanner);
+                case 4 -> Palindrome.run(scanner);
                 default -> System.out.println("Retour au menu principal...");
             }
         } while (choix != 0);
