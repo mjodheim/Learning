@@ -2,24 +2,29 @@ package MiniApplications;
 
 import java.util.Scanner;
 
-public class SystemeDeConnexion{
-    public static void run (Scanner sc){
-        String ref = "Test123!", pwd, sortie;
-        int count = 0;
+public final class SystemeDeConnexion {
+    private static final String MOT_DE_PASSE = "Test123!";
+    private static final int NOMBRE_MAX_ESSAIS = 3;
 
-        sc.nextLine(); // Consomme le retour à la ligne restant
+    private SystemeDeConnexion() {
+    }
 
-        do {
-            IO.print("=== Veuillez entrer le bon mot de passe ===");
-            pwd = sc.nextLine();
+    public static void run(Scanner scanner) {
+        for (int essai = 1; essai <= NOMBRE_MAX_ESSAIS; essai++) {
+            System.out.print("Veuillez entrer le mot de passe : ");
+            String motDePasse = scanner.nextLine();
 
-            if (pwd.equals(ref)) break;
+            if (MOT_DE_PASSE.equals(motDePasse)) {
+                System.out.println("Mot de passe correct.");
+                return;
+            }
 
-            IO.print("Mot de passe invalide, veuillez recommencer...");
-            count++;
-        } while(count < 3);
+            int essaisRestants = NOMBRE_MAX_ESSAIS - essai;
+            if (essaisRestants > 0) {
+                System.out.printf("Mot de passe invalide. Il reste %d essai(s).%n", essaisRestants);
+            }
+        }
 
-        sortie = (count != 3) ? "Mot de passe correct." : "Vous avez échoué 3 fois, compte bloqué.";
-        IO.print(sortie);
+        System.out.println("Vous avez échoué 3 fois, compte bloqué.");
     }
 }
