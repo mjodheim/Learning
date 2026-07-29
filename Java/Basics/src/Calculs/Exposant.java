@@ -1,82 +1,58 @@
 package Calculs;
 
-import java.util.InputMismatchException;
+import Utils.Saisie;
+
 import java.util.Scanner;
 
-public class Exposant {
-    public static void run (Scanner sc){
-        int nbr = 0, exposant = 0, count, signeNbr = 0, result, signeResult = 1;
-        float resultExposantNegatif;
-        boolean saisieValide = false;
+public final class Exposant {
+    private Exposant() {
+    }
 
-        System.out.println("Veuillez entrer un nombre et un exposant :");
-        do {
-            System.out.print("Nombre : ");
-            try {
-                nbr = Integer.parseInt(sc.next());
-                signeNbr = switch (Integer.compare(nbr, 0)){
-                    case 1 -> 1; // positif
-                    case -1 -> -1; // négatif
-                    default -> throw new InputMismatchException("Résultat de comparaison impossible.");
-                };
-                nbr = Math.abs(nbr); // On ne garde que la valeur absolue
-                saisieValide = true;
-            } catch (NumberFormatException e) {
-                System.err.printf("Erreur %s Veuillez entrer un nombre entier valide.", e.getMessage());
-            } catch (InputMismatchException e) {
-                System.err.printf("Erreur = %s", e.getMessage());
-            }
-        } while(!saisieValide);
+    public static void run(Scanner scanner) {
+        int nombre = Saisie.lireEntier(
+            scanner,
+            "Nombre : ",
+            "Erreur : veuillez entrer un nombre entier valide."
+        );
 
-        // cas du nbr à 0
-        if (nbr == 0) {
-            System.out.print("""
-                Peu importe la puissance, le résultat vaudra toujours 0
-                Retour au menu principal...
-                """);
-            return; // on retourne directement au menu principal
+        int exposant = Saisie.lireEntier(
+            scanner,
+            "Exposant : ",
+            "Erreur : veuillez entrer un exposant entier valide."
+        );
+
+        if (nombre == 0 && exposant < 0) {
+            System.out.println("Calcul impossible : zéro ne peut pas être élevé à une puissance négative.");
+            return;
         }
-        saisieValide = false;
 
-        do {
-            System.out.print("Exposant : ");
-            try {
-                exposant = Integer.parseInt(sc.next());
-                saisieValide = true;
-            } catch (NumberFormatException e) {
-                System.err.printf("Erreur %s Veuillez entrer un nombre entier valide.", e.getMessage());
-            }
-        } while(!saisieValide);
+        double resultat = calculerPuissance(nombre, exposant);
+        System.out.printf("Le résultat de %d élevé à la puissance %d vaut %s.%n",
+            nombre,
+            exposant,
+            formaterResultat(resultat)
+        );
+    }
 
-        // Cas de l'exposant 0
+    private static double calculerPuissance(int nombre, int exposant) {
         if (exposant == 0) {
-            System.out.print("""
-                Peu importe le nombre, le résultat vaudra toujours 1
-                Retour au menu principal...
-                """);
-            return; // on retourne directement au menu principal
+            return 1;
         }
 
-        // Boucle pour le calcul (sans utiliser de méthode donc)
-        result = nbr;
-        count = 1;
+        long exposantAbsolu = Math.abs((long) exposant);
+        double resultat = 1;
 
-        do {
-            result *= nbr;
-            count ++;
-        } while (count < Math.abs(exposant));
-
-        // Calcul du signe
-        if (signeNbr == -1 && exposant % 2 != 0 ){
-            signeResult = -1;
+        for (long i = 0; i < exposantAbsolu; i++) {
+            resultat *= nombre;
         }
 
-        // Si exposant positif
-        if (exposant > 0) System.out.printf("Le résultat de %d élevé à la puissance %d vaut %d\n",nbr, exposant, signeResult * result);
-        // Si exposant négatif
-        resultExposantNegatif = signeResult * (1 / (Float.parseFloat(result + "")));
-        if(exposant < 0) System.out.printf("Le résultat de %d élevé à la puissance %d vaut 1 / %d : %f\n",nbr, exposant, signeResult * result, resultExposantNegatif);
+        return exposant < 0 ? 1 / resultat : resultat;
+    }
 
-        System.out.print("Retour au menu principal...");
+    private static String formaterResultat(double resultat) {
+        if (resultat == Math.rint(resultat)) {
+            return String.format("%.0f", resultat);
+        }
+        return Double.toString(resultat);
     }
 }
