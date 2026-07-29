@@ -2,35 +2,42 @@ package Matrices;
 
 import java.util.Random;
 
-public class PlusGrandElement {
-    public static void run(){
+public final class PlusGrandElement {
+    private PlusGrandElement() {
+    }
+
+    public static void run() {
         Random random = new Random();
-        int taille = random.nextInt(10);
-        System.out.print("Création d'une matrice de taille " + taille + "...");
-
+        int taille = random.nextInt(1, 11);
         int[][] matrice = new int[taille][taille];
-        int max = 0;
-        int x = 0, y = 0;
-        StringBuilder matriceString = new StringBuilder();
 
+        int maximum = Integer.MIN_VALUE;
+        int ligneMaximum = 0;
+        int colonneMaximum = 0;
 
-        // On remplit la matrice avec des nombres aléatoires de 0 à 9 et on les affiche.
-        // On récupère en même temps le plus grand élément de chaque ligne.
+        System.out.printf("Création d'une matrice de taille %d × %d...%n", taille, taille);
 
         for (int i = 0; i < matrice.length; i++) {
+            StringBuilder ligne = new StringBuilder("| ");
+
             for (int j = 0; j < matrice[i].length; j++) {
                 matrice[i][j] = random.nextInt(10);
-                matriceString.append(matrice[i][j]).append(" | ");
-                if (matrice[i][j] > max) {
-                    max = matrice[i][j];
-                    x = i;
-                    y = j;
+                ligne.append(matrice[i][j]).append(" | ");
+
+                if (matrice[i][j] > maximum) {
+                    maximum = matrice[i][j];
+                    ligneMaximum = i;
+                    colonneMaximum = j;
                 }
             }
-            System.out.println(matriceString);
+
+            System.out.println(ligne);
         }
 
-        // Affichage
-        System.out.printf("Max = %d en (%d, %d)", max, x, y);
+        System.out.printf("Maximum = %d à la position (%d, %d).%n",
+            maximum,
+            ligneMaximum,
+            colonneMaximum
+        );
     }
 }
