@@ -1,0 +1,116 @@
+body {
+
+    background-color: orange;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #555;
+}
+
+#main-page-content {
+    box-sizing: border-box;
+}
+
+table {
+    width: 750px;
+    border-spacing: 0;
+}
+
+#nav-table {
+    height: 50px;
+    background-color: purple;
+    color: white;
+}
+
+#nav-table td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 7px;
+    font-weight: bold;
+}
+
+#main-table {
+    margin-top: 20px;
+    padding: 25px;
+    background-color: white;
+}
+
+#main-table td {
+    vertical-align: top;
+    padding: 0 25px 25px 0;
+}
+
+#header-main-table {
+    padding: 12px 0 25px !important;
+}
+
+#integer-gravida {
+    padding-top: 10;
+}
+
+#header-main-table img {
+    display: block;
+    width: 550px;
+    height: 135px;
+
+}
+
+#ex10 {
+    font-size: 28px !important;
+    padding-left: 25px;
+    text-align: left !important;
+    width: 375px;
+    font-weight: normal !important;
+}
+
+#about {
+    padding-right: 20px;
+}
+
+h1 h2 {
+    margin-top: 0;
+    color: #111;
+    letter-spacing: 3px;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+p li {
+    font-size: 7px;
+}
+
+ul {
+    padding-left: 18px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 9px 18px;
+    margin-top: 10px;
+    background-color: purple;
+    color: white;
+    font-size: 8px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.picto {
+    width: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    color: aqua;
+}
+
+a :hover {
+    color: yellowgreen;
+}
