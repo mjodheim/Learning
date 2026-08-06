@@ -251,6 +251,7 @@ WHERE EXTRACT(YEAR FROM "birth_date") BETWEEN 1955 AND 1965;
 -- chiffres (ex : 11 juin 2005)
 
 -- Si la locale le permet on peut : SET lc_time = 'fr_FR.utf8' pour avoir le mois en français. 
+-- -> Pas recommandé à faire depuis la db, plutôt dans le front.
 SELECT "last_name",
     "year_result",
     TO_CHAR("birth_date", 'DD month YYYY') AS "Date de naissance"
