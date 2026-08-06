@@ -268,5 +268,51 @@ SELECT "last_name",
     "year_result",
     NULLIF("year_result", 4) AS "Nouveau résultat"
 FROM "student"
-WHERE EXTRACT(MONTH FROM "birth_date") NOT IN (12, 1, 2) 
+WHERE EXTRACT(MONTH FROM "birth_date") NOT IN (12, 1, 2, 3) 
     AND "year_result" < 7;
+
+-- Exercice 2.4.7 – Donner pour chaque section, le résultat maximum (dans une colonne appelée
+-- « Résultat maximum ») obtenu par les étudiants
+
+SELECT "section_id",
+    MAX("year_result") AS "Résultat maximum"
+FROM "student"
+GROUP BY "section_id";
+
+-- Exercice 2.4.8 – Donner pour toutes les sections commençant par 10, le résultat annuel moyen
+-- PRÉCIS (dans une colonne appelée « Moyenne ») obtenu par les étudiants
+
+SELECT "section_id",
+    AVG("year_result") AS "Moyenne"
+FROM "student"
+WHERE CAST("section_id" AS VARCHAR(10)) LIKE '10%'
+GROUP BY "section_id";
+
+-- Exercice 2.4.9 – Donner le résultat moyen (dans une colonne appelée « Moyenne ») et le mois
+-- en chiffre (dans une colonne appelée « Mois de naissance ») pour les étudiants nés le même mois
+-- entre 1970 et 1985
+
+SELECT EXTRACT(MONTH FROM "birth_date") AS "Mois de naissance",
+    CAST(AVG("year_result") AS INTEGER) AS "Moyenne"
+FROM "student"
+WHERE EXTRACT(YEAR FROM "birth_date") BETWEEN 1970 AND 1985
+GROUP BY EXTRACT(MONTH FROM "birth_date");
+
+-- Exercice 2.4.10 – Donner pour toutes les sections qui comptent plus de 3 étudiants, la
+-- moyenne PRÉCISE des résultats annuels (dans une colonne appelée « Moyenne »)
+
+SELECT "section_id",
+    AVG("year_result") AS "Moyenne"
+FROM "student"
+GROUP BY "section_id"
+HAVING COUNT(*) > 3;
+
+-- Exercice 2.4.11 – Donner le résultat maximum obtenu par les étudiants appartenant aux
+-- sections dont le résultat moyen est supérieur à 8
+
+SELECT "section_id",
+    CAST(AVG("year_result") AS INTEGER) AS "Moyenne",
+    MAX("year_result") AS "Résultat maximum"
+FROM "student"
+GROUP BY "section_id"
+HAVING AVG("year_result") > 8;
