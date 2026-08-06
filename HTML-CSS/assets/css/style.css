@@ -114,3 +114,39 @@ a {
 a :hover {
     color: yellowgreen;
 }
+
+.form-title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(40, 65, 207);
+}
+
+.form-container > input {
+    display: inline-block;
+    width: 250px;
+    padding: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-container > label {
+    width: 250px;
+    padding: 4px;
+    display: inline-block;
+}
+
+.form-container > input:invalid {
+    border-right: 2px solid red;
+}
+
+.form-container > input:valid {
+    border-right: 2px solid green;
+}
+
+.form-body {
+    background-color: whitesmoke;
+    padding: 25px;
+    margin: 0 auto;
+    width: 750px;
+}
+
