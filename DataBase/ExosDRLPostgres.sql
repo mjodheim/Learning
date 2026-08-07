@@ -425,3 +425,202 @@ FROM "section" s
     LEFT JOIN "professor" p ON s."section_id" = p."section_id"
 WHERE p."professor_id" IS NULL
 ORDER BY s."section_id";
+
+-- Exercice 2.7.1 - Donner la liste des étudiants (nom et prénom) qui font partie de la même
+-- section que mademoiselle « Roberts ». La liste doit être classée par ordre alphabétique sur le nom
+-- et mademoiselle « Roberts » ne doit pas apparaitre dans la liste
+
+SELECT 
+    st."last_name",
+    st."first_name",
+    s."section_id"
+FROM "student" st
+    JOIN "section" s ON st."section_id" = s."section_id"
+WHERE st."section_id" IN (
+    SELECT s."section_id"
+    FROM "student" s
+    WHERE s."last_name" = 'Roberts'
+)
+AND NOT (st."last_name" = 'Roberts')
+ORDER BY st."last_name" ASC;
+
+-- Exercice 2.7.2 - Donner la liste des étudiants (nom, prénom et résultat) de l’ensemble des
+-- étudiants ayant obtenu un résultat annuel supérieur au double du résultat moyen pour l’ensemble
+-- des étudiants
+
+SELECT
+    st."last_name",
+    st."first_name",
+    st."year_result"
+FROM "student" st
+WHERE st."year_result" > 2 * (
+    SELECT AVG("year_result") FROM "student"
+    );
+
+-- Exercice 2.7.3 - Donner la liste de toutes les sections qui n’ont pas de professeur
+
+SELECT
+    s."section_id",
+    s."section_name"
+FROM "section" s
+WHERE s."section_id" NOT IN (
+    SELECT DISTINCT p."section_id"
+    FROM "professor" p
+    WHERE p."section_id" IS NOT NULL
+    );
+
+-- Exercice 2.7.4 - Donner la liste des étudiants qui ont comme mois de naissance le mois
+-- correspondant à la date d’engagement du professeur « Giot ». Classer les étudiants par ordre de
+-- résultat annuel décroissant
+
+SELECT 
+    st."last_name",
+    st."first_name",
+    TO_CHAR(st."birth_date", 'MM/DD/YYYY') AS "Date de Naissance",
+    st."year_result"
+FROM "student" st
+WHERE EXTRACT(MONTH FROM st."birth_date") = (
+    SELECT EXTRACT(MONTH FROM p."professor_hire_date")
+    FROM "professor" p
+    WHERE INITCAP(p."professor_name") = 'Giot'
+)
+ORDER BY st."year_result" DESC;
+
+-- Exercice 2.7.5 - Donner la liste des étudiants qui ont obtenu le grade « TB » pour leur résultat
+-- annuel
+
+SELECT 
+    st."last_name",
+    st."first_name",
+    st."year_result"
+FROM "student" st
+WHERE st.year_result BETWEEN (
+    SELECT g."lower_bound"
+    FROM "grade" g
+    WHERE g."grade" = 'TB'
+) AND (
+    SELECT g."upper_bound"
+    FROM "grade" g
+    WHERE g."grade" = 'TB'
+);
+
+-- Exercice 2.7.6 - Donner la liste des étudiants qui appartienne à la section pour laquelle
+-- Mademoiselle « Marceau » est déléguée
+
+SELECT st."last_name",
+    st."first_name",
+    st."section_id"
+FROM "student" st
+WHERE st."section_id" = (
+    SELECT 
+    s."section_id"
+    FROM "section" s
+        JOIN "student" st ON s."delegate_id" = st."student_id"
+    WHERE st."last_name" = 'Marceau'
+);
+
+-- Exercice 2.7.7 – Donner la liste des sections qui se composent de plus de quatre étudiants
+SELECT
+    s."section_id",
+    s."section_name"
+FROM "section" s
+WHERE s."section_id" IN (
+    SELECT st."section_id"
+    FROM "student" st
+    GROUP BY st."section_id"
+    HAVING COUNT(st."student_id") > 4
+);
+
+-- Exercice 2.7.8 – Donner la liste des étudiants premiers de leur section en terme de résultat
+-- annuel et qui n’appartiennent pas aux sections dont le résultat moyen est inférieure à 10
+
+SELECT 
+    st."last_name",
+    st."first_name",
+    st."section_id"
+FROM "student" st
+-- sections dont le résultat moyen est inférieure à 10
+WHERE st."section_id" NOT IN (
+    SELECT st."section_id"
+    FROM "student" st
+    GROUP BY st."section_id"
+    HAVING AVG(st."year_result") < 10
+) 
+-- étudiants premiers de leur section en terme de résultat annuel
+AND st."year_result" = (
+    SELECT MAX(st2."year_result")
+    FROM "student" st2
+    WHERE st2."section_id" = st."section_id"
+)
+ORDER BY st."section_id" DESC;
+
+-- Exercice 2.7.9 – Donner la section qui possède la moyenne la plus élevée. Le résultat présente
+-- le numéro de section ainsi que sa moyenne
+
+WITH AVG_CTE AS (
+    SELECT 
+        st."section_id",
+        AVG(st."year_result")::INT AS "Moyenne"
+    FROM "student" st
+    GROUP BY st."section_id"
+)
+
+SELECT 
+    AVG_CTE."section_id",
+    AVG_CTE."Moyenne"
+FROM AVG_CTE
+WHERE AVG_CTE."Moyenne" = (
+    SELECT MAX(AVG_CTE."Moyenne")
+    FROM AVG_CTE
+);
+
+-- Exercice complémentaire sur les CTE récursives
+
+CREATE TABLE "AVENGERS" (
+    "id" SERIAL,
+    "last_name" VARCHAR(50),
+    "first_name" VARCHAR(50),
+    "hero_name" VARCHAR(100),
+    "superior_id" INT,
+
+    CONSTRAINT "PK_AVENGERS" PRIMARY KEY ("id"),
+    CONSTRAINT "FK_AVENGERS_SUPERIOR" FOREIGN KEY ("superior_id") REFERENCES "AVENGERS" ("id"),
+    CONSTRAINT "UQ_AVENGERS_NAME" UNIQUE ("last_name", "first_name")
+);
+
+INSERT INTO "AVENGERS" ("last_name", "first_name", "hero_name", "superior_id") VALUES
+('Furry', 'Nick', 'Director Fury', NULL),
+('Rogers', 'Steve', 'Captain America', 1),
+('Romanoff', 'Natasha', 'Black Widow', 1),
+('Banner', 'Bruce', 'Hulk', 1),
+('Stark', 'Tony', 'Iron Man', 1),
+('Odinson', 'Thor', 'God of Thunder', 1),
+('Parker', 'Peter', 'Spider-Man', 5),
+('Maximoff', 'Wanda', 'Scarlet Witch', 1),
+('Vision', 'Vision', 'Vision', 8),
+('Lang', 'Scott', 'Ant-Man', 5),
+('Rogers', 'Sam', 'Falcon', 2),
+('Wilson', 'James', 'War Machine', 5),
+('Barton', 'Clint', 'Hawkeye', 1),
+('Romanoff', 'Yelena', 'Black Widow II', 3);
+
+WITH RECURSIVE AvengersCTE AS (
+    SELECT 
+        *,
+        NULL::VARCHAR(100) AS "superior_hero_name"
+    FROM "AVENGERS"
+    WHERE "superior_id" IS NULL
+
+    UNION ALL
+
+    SELECT 
+        a.*,
+        cte."hero_name" AS "superior_hero_name"
+    FROM "AVENGERS" a
+    INNER JOIN AvengersCTE cte ON a."superior_id" = cte."id"
+)
+
+SELECT 
+    "hero_name" AS "Hero",
+    "superior_hero_name" AS "Manager Name"
+FROM AvengersCTE;
