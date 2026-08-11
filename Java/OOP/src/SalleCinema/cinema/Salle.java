@@ -52,7 +52,9 @@ public class Salle {
         if (nb <= 0) {
             return false;
         }
-        if (reduction < 0 || reduction > 1) {
+        // isFinite écarte NaN et l'infini. Sans lui, NaN traverserait la garde :
+        // il rend fausse TOUTE comparaison, donc < 0 et > 1 sont faux tous les deux.
+        if (!Double.isFinite(reduction) || reduction < 0 || reduction > 1) {
             return false;
         }
         // Voir (5)
@@ -95,7 +97,9 @@ public class Salle {
     // encaisser l'appelle quand même : la classe ne fait pas confiance à l'appelant.
     public static boolean billetsValides(double... billets) {
         for (double billet : billets) {
-            if (billet < 0) {
+            // Même précaution que dans reserver : NaN et l'infini passeraient
+            // le simple test billet < 0 et empoisonneraient la recette.
+            if (!Double.isFinite(billet) || billet < 0) {
                 return false;
             }
         }

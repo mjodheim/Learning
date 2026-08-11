@@ -20,7 +20,9 @@ public final class Saisie {
                 }
                 System.out.println(messageErreur);
             } catch (NumberFormatException e) {
-                System.out.println("Erreur : veuillez entrer un nombre entier valide.");
+                // Le message de l'appelant sert aussi ici : sans ça, les surcharges
+                // qui imposent valeur -> true recevraient un messageErreur inutilisable.
+                System.out.println(messageErreur);
             }
         }
     }

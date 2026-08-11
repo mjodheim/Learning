@@ -10,7 +10,7 @@ public final class Tarifs {
     }
 
     public static void run(Scanner scanner) {
- double ht = Saisie.lireReel(
+        double ht = Saisie.lireReel(
             scanner,
             "Montant hors taxes : ",
             "Valeur invalide, veuillez ré-essayer..."
