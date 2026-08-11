@@ -74,36 +74,14 @@ public class Salle {
     }
 
     // (6) Nombre variable d'arguments : accepte zéro, un ou plusieurs billets.
-    // Petit ajout : le total encaissé vient créditer la recette de la salle.
+    // Elle se contente de faire la somme : elle ne touche pas à la recette,
+    // qui n'est alimentée que par reserver.
     public double encaisser(double... billets) {
-        // Même principe que dans reserver : une garde, une sortie immédiate.
-        // Un seul billet négatif fait refuser tout l'encaissement.
-        if (!billetsValides(billets)) {
-            return 0;
-        }
-
         double total = 0;
         for (double billet : billets) {
             total += billet;
         }
-
-        recette += total;
         return total;
-    }
-
-    // Contrairement à placesDisponibles, cette règle est publique : le guichet
-    // doit pouvoir vérifier un lot pour savoir quoi afficher. Elle reste static,
-    // car la validité d'un billet ne dépend d'aucune salle en particulier.
-    // encaisser l'appelle quand même : la classe ne fait pas confiance à l'appelant.
-    public static boolean billetsValides(double... billets) {
-        for (double billet : billets) {
-            // Même précaution que dans reserver : NaN et l'infini passeraient
-            // le simple test billet < 0 et empoisonneraient la recette.
-            if (!Double.isFinite(billet) || billet < 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     // (7) Ne dépend d'aucune salle en particulier -> static.

@@ -1,6 +1,5 @@
 package SalleCinema.Billetterie;
 
-import SalleCinema.EtatSalle;
 import SalleCinema.cinema.Salle;
 import Utils.Saisie;
 
@@ -11,19 +10,12 @@ public final class Caisse {
     }
 
     public static void run(Scanner scanner, Salle salle) {
-        System.out.println("""
-            La caisse accepte zéro, un ou plusieurs billets à la fois,
-            et chaque encaissement vient créditer la recette de la salle :""");
+        System.out.println("La caisse accepte zéro, un ou plusieurs billets à la fois :");
 
         // Le même nom de méthode accepte n'importe quel nombre d'arguments.
-        // Ces trois appels sont de vrais encaissements : ils créditent 55 € au total.
         System.out.printf("aucun billet          -> %.2f €%n", salle.encaisser());
         System.out.printf("un billet de 20       -> %.2f €%n", salle.encaisser(20));
-        System.out.printf("20 + 10 + 5           -> %.2f €%n", salle.encaisser(20, 10, 5));
-
-        // La garde renvoie 0 sans rien créditer : un seul billet négatif
-        // suffit à faire refuser le lot entier, le 20 compris.
-        System.out.printf("20 + (-5)             -> %.2f €   (refusé)%n%n", salle.encaisser(20, -5));
+        System.out.printf("20 + 10 + 5           -> %.2f €%n%n", salle.encaisser(20, 10, 5));
 
         int nombreDeBillets = Saisie.lireEntier(
             scanner,
@@ -44,17 +36,8 @@ public final class Caisse {
             );
         }
 
-        double total = salle.encaisser(billets);
-
-        // encaisser renvoie 0 aussi bien pour un lot refusé que pour un lot
-        // réellement vide : c'est billetsValides qui permet de trancher.
-        if (Salle.billetsValides(billets)) {
-            System.out.printf("Total encaissé : %.2f €%n", total);
-        } else {
-            System.out.println("Encaissement refusé : le lot contient au moins un billet négatif.");
-        }
-
-        // La recette affichée ici cumule les ventes au guichet et les encaissements.
-        EtatSalle.run(salle);
+        // encaisser rend le total sans rien modifier : la recette de la salle
+        // ne bouge pas, seul reserver l'alimente.
+        System.out.printf("Total encaissé : %.2f €%n%n", salle.encaisser(billets));
     }
 }
