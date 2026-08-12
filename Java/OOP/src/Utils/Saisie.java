@@ -1,10 +1,17 @@
 package Utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 
 public final class Saisie {
+
+    // Accepte aussi bien 4/7/2026 que 04/07/2026.
+    private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("d/M/yyyy");
+
     private Saisie() {
         // Empêche l'instanciation
     }
@@ -60,5 +67,71 @@ public final class Saisie {
 
     public static double lireReel(Scanner scanner, String message, String messageErreur) {
         return lireReel(scanner, message, valeur -> true, messageErreur);
+    }
+
+    public static String lireTexte(Scanner scanner, String message, String messageErreur) {
+        while (true) {
+            System.out.print(message);
+            String saisie = scanner.nextLine().trim();
+
+            if (!saisie.isEmpty()) {
+                return saisie;
+            }
+            System.out.println(messageErreur);
+        }
+    }
+
+    public static boolean lireOuiNon(Scanner scanner, String message, String messageErreur) {
+        while (true) {
+            System.out.print(message);
+            String saisie = scanner.nextLine().trim().toLowerCase();
+
+            switch (saisie) {
+                case "o", "oui" -> {
+                    return true;
+                }
+                case "n", "non" -> {
+                    return false;
+                }
+                default -> System.out.println(messageErreur);
+            }
+        }
+    }
+
+    // Une saisie vide renvoie la valeur par défaut proposée par l'appelant.
+    public static LocalDate lireDate(Scanner scanner, String message, String messageErreur, LocalDate valeurParDefaut) {
+        while (true) {
+            System.out.print(message);
+            String saisie = scanner.nextLine().trim();
+
+            if (saisie.isEmpty() && valeurParDefaut != null) {
+                return valeurParDefaut;
+            }
+
+            try {
+                return LocalDate.parse(saisie, FORMAT_DATE);
+            } catch (DateTimeParseException e) {
+                System.out.println(messageErreur);
+            }
+        }
+    }
+
+    // Sans valeur par défaut, une date valide est obligatoire.
+    public static LocalDate lireDate(Scanner scanner, String message, String messageErreur) {
+        return lireDate(scanner, message, messageErreur, null);
+    }
+
+    /* Affiche les valeurs d'une énumération, numérotées, et renvoie celle qui a été choisie.
+     * <T extends Enum<T>> : la méthode accepte n'importe quelle énumération, et rien d'autre.
+     * L'affichage de chaque valeur passe par son toString().
+     */
+    public static <T extends Enum<T>> T lireEnumeration(Scanner scanner, String titre, T[] valeurs, String messageErreur) {
+        System.out.println(titre);
+        for (int i = 0; i < valeurs.length; i++) {
+            System.out.printf("%d. %s%n", i + 1, valeurs[i]);
+        }
+
+        int choix = lireEntier(scanner, "", messageErreur, 1, valeurs.length);
+        return valeurs[choix - 1];
     }
 }
