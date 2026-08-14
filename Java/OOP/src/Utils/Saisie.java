@@ -12,9 +12,7 @@ public final class Saisie {
     // Accepte aussi bien 4/7/2026 que 04/07/2026.
     private static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    private Saisie() {
-        // Empêche l'instanciation
-    }
+    private Saisie() {}
 
     public static int lireEntier(Scanner scanner, String message, IntPredicate condition, String messageErreur) {
         while (true) {
@@ -28,8 +26,6 @@ public final class Saisie {
                 }
                 System.out.println(messageErreur);
             } catch (NumberFormatException e) {
-                // Le message de l'appelant sert aussi ici : sans ça, les surcharges
-                // qui imposent valeur -> true recevraient un messageErreur inutilisable.
                 System.out.println(messageErreur);
             }
         }
@@ -121,10 +117,6 @@ public final class Saisie {
         return lireDate(scanner, message, messageErreur, null);
     }
 
-    /* Affiche les valeurs d'une énumération, numérotées, et renvoie celle qui a été choisie.
-     * <T extends Enum<T>> : la méthode accepte n'importe quelle énumération, et rien d'autre.
-     * L'affichage de chaque valeur passe par son toString().
-     */
     public static <T extends Enum<T>> T lireEnumeration(Scanner scanner, String titre, T[] valeurs, String messageErreur) {
         System.out.println(titre);
         for (int i = 0; i < valeurs.length; i++) {
