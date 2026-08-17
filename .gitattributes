@@ -1,0 +1,28 @@
+# Normalize line endings across all text files to prevent CRLF/LF churn.
+# The repo has no build system that could enforce EOL, so Windows editors
+# re-saving files as CRLF caused large no-op diffs (61 files at one point).
+* text=auto
+
+# Source and config files: force LF.
+*.java text eol=lf
+*.cs text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.sql text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+
+# Binary files: never touch.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.xlsx binary
+*.xls binary
