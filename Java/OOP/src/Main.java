@@ -3,6 +3,8 @@ import SalleCinema.SalleCinema;
 import SalleCinema.cinema.Salle;
 import Banque.Banque;
 import Utils.Saisie;
+import Utils.IO;
+import java.util.Scanner;
 
 void main() {
 
