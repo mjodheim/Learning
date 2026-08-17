@@ -4,6 +4,8 @@ import Matrices.Matrices;
 import MiniApplications.MiniApplications;
 import Tableaux.Tableaux;
 import Utils.Saisie;
+import Utils.IO;
+import java.util.Scanner;
 
 void main() {
 

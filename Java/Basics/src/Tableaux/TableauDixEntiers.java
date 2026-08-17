@@ -1,5 +1,7 @@
 package Tableaux;
 
+import Utils.IO;
+
 public class TableauDixEntiers {
     public static void run (){
         int exp = 2;
