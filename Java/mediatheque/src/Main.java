@@ -24,6 +24,7 @@ void main() {
             case 8 -> rendre(mediatheque);
             case 9 -> afficherEmpruntsEnCours(mediatheque);
             case 10 -> afficherStatistiques(mediatheque);
+            case 100 -> autoControle(mediatheque); // menu caché
             case 0 -> System.out.println("Merci, à bientôt !");
             default -> System.out.println("Choix invalide.");
         }
@@ -295,4 +296,18 @@ private static void chargerDonneesDemo(Mediatheque mediatheque) {
 
     mediatheque.inscrireMembre(membre1);
     mediatheque.inscrireMembre(membre2);
+}
+
+private static void autoControle(Mediatheque mediatheque) {
+    System.out.println("=== AUTO-CONTRÔLE ===");
+    int tailleInitiale = mediatheque.listerTous().size();
+    mediatheque.listerTous().clear();
+    System.out.println("Catalogue protégé : " + (mediatheque.listerTous().size() == tailleInitiale));
+
+    Media media = mediatheque.listerTous().getFirst();
+    Set<Media> set = new HashSet<>();
+    set.add(media);
+    set.add(media);
+
+    System.out.println("equals/hashCode correct : " + (set.size() == 1));
 }
