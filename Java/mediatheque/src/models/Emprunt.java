@@ -27,6 +27,9 @@ public class Emprunt{
         this.dateEmprunt = LocalDate.now();
         this.dateRetourPrevue = dateEmprunt.plusDays(media.dureeEmpruntJours());
         this.dateRetourReelle = null;
+
+        // Il faut aussi marquer le média comme emprunté
+        media.marquerEmprunte();
     }
 
     // Getters
@@ -72,6 +75,7 @@ public class Emprunt{
         long retard = joursDeRetard();
 
         this.dateRetourReelle = LocalDate.now();
+
         // Libération du média
         media.marquerDisponible();
 
