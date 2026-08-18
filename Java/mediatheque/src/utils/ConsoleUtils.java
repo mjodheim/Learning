@@ -57,4 +57,32 @@ public class ConsoleUtils {
             System.out.println(element.toString());
         }
     }
+
+    // Ajout d'une méthode de vérification des enums
+    // Méthode conseillée par l'IA pour éviter tous les 'valueof()' dans le main.
+    public static <T extends Enum<T>> T lireEnum(
+            String message,
+            Class<T> enumType
+    ) {
+        while (true) {
+            System.out.println(message);
+
+            for (T valeur : enumType.getEnumConstants()) {
+                System.out.println("- " + valeur);
+            }
+
+            String saisie = lireTexte("Votre choix : ");
+
+            try {
+                return Enum.valueOf(
+                        enumType,
+                        saisie.trim().toUpperCase()
+                );
+            } catch (IllegalArgumentException e) {
+                System.out.println(
+                        "Valeur invalide, veuillez réessayer."
+                );
+            }
+        }
+    }
 }
