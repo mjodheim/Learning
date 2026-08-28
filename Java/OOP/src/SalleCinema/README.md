@@ -79,3 +79,20 @@ Dans `SalleVIP` :
 | `codeNettoyage` | doit **échouer** |
 
 Si l'un de ces tests passe alors qu'il devrait échouer, votre visibilité est trop large.
+
+---
+
+## Implémentation actuelle
+
+L'énoncé ci-dessus correspond au point de départ de l'exercice. La version conservée dans le dépôt a ensuite été prolongée pour pratiquer davantage l'organisation du code et la séparation des responsabilités.
+
+Elle comprend notamment :
+
+- `cinema/` pour les classes centrales représentant les salles ;
+- `Billetterie/` pour les réservations, tarifs et opérations liées aux places ;
+- `Direction/` pour les actions de gestion et de suivi ;
+- `Exploitation/` pour les opérations liées au fonctionnement des salles ;
+- `EtatSalle.java` pour représenter l'état d'une salle ;
+- `SalleCinema.java` pour lancer et orchestrer l'exercice.
+
+L'énoncé original est volontairement conservé afin de montrer les notions qui ont servi de base à cette évolution.
