@@ -25,7 +25,7 @@ Deux spécialisations sont utilisées :
 - `CompteCourant` pour le compte disposant d'une ligne de crédit ;
 - `CompteEpargne` pour le compte épargne et ses règles spécifiques.
 
-Chaque sous-classe fournit notamment son type de compte, son montant retirable, son taux et son calcul d'intérêts. La classe mère conserve le comportement commun. fileciteturn132file0L2-L6
+Chaque sous-classe fournit notamment son type de compte, son montant retirable, son taux et son calcul d'intérêts. La classe mère conserve le comportement commun.
 
 ## Organisation actuelle
 
