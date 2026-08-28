@@ -15,11 +15,18 @@ Exercices, laboratoires et projets réalisés au fil de ma formation en dévelop
 
 ## À propos
 
-Ce dépôt documente ma progression en **développement Full Stack**. Il rassemble volontairement des exercices de niveaux différents : des fondamentaux de programmation jusqu'aux premières applications structurées en plusieurs couches.
+Ce dépôt documente ma progression en **développement Full Stack**. Il rassemble des exercices de niveaux différents, depuis les fondamentaux de programmation jusqu'aux premières applications structurées en plusieurs couches.
 
 Le parcours a commencé avec **C# / .NET**, SQL Server, l'accès aux données et ASP.NET Core. Il se poursuit avec **Java**, PostgreSQL et JavaScript, avant d'aborder progressivement JDBC, Hibernate/JPA, Spring Boot, les API REST, les tests, Docker, TypeScript et Angular.
 
-Il ne s'agit pas d'un produit unique ni d'un portfolio où chaque fichier a été réécrit pour paraître parfait. Les dossiers conservent le caractère pédagogique des exercices afin de rendre visibles les notions travaillées et la progression entre les différents modules.
+Les exercices sont volontairement conservés dans leur contexte pédagogique afin de rendre visibles les notions travaillées, les différentes étapes de l'apprentissage et la progression entre les modules.
+
+## Projets et exercices représentatifs
+
+- **[Heroes vs Monsters — Java](./Java/HeroesVsMonsters)** — exercice récapitulatif orienté objet autour de l'héritage, du polymorphisme, des interfaces, de la composition et des règles métier.
+- **[API REST — C# / ASP.NET Core](./MyAPI)** — API CRUD organisée en plusieurs couches avec DTO, mapping, injection de dépendances, repository, gestion des erreurs et Swagger.
+- **[Médiathèque — Java](./Java/mediatheque)** — application console de gestion de médias, membres et emprunts, centrée sur la modélisation objet et la logique métier.
+- **[Entity Framework Core](./DataAccess/EFCore)** — exercices de persistance, relations, migrations et requêtes LINQ.
 
 ## Contenu du dépôt
 
@@ -41,16 +48,16 @@ Il ne s'agit pas d'un produit unique ni d'un portfolio où chaque fichier a ét�
 ## Quelques repères
 
 - Les **README placés dans certains exercices** conservent l'énoncé, les objectifs ou les choix d'implémentation propres au module.
-- Les projets générés par un framework sont identifiés comme tels. Le dossier Angular actuel est un projet de découverte basé sur le scaffold Angular CLI, pas une application métier finalisée.
+- Les projets générés par un framework sont identifiés comme tels. Le dossier Angular actuel sert de base de découverte d'Angular CLI et sera enrichi au fil des modules consacrés à TypeScript et Angular.
 - Les exercices plus anciens restent présents lorsqu'ils apportent un repère utile sur les fondamentaux étudiés avant les projets plus structurés.
 
 ## Suite du parcours
 
 Les prochains modules viendront compléter progressivement le dépôt :
 
-`JDBC → UML → Hibernate / JPA → Spring Boot → REST → Testing Java → Docker → TypeScript → Angular`
+`JDBC → UML → Hibernate / JPA → Spring Boot → REST → Testing Java → Docker → approfondissement TypeScript & Angular`
 
-L'objectif est de relier ces briques dans des applications de plus en plus complètes, tout en gardant les exercices intermédiaires qui documentent l'apprentissage.
+L'objectif est de relier progressivement ces briques dans des applications plus complètes tout en conservant les exercices intermédiaires qui documentent l'apprentissage.
 
 ---
 
@@ -60,7 +67,7 @@ This repository documents my **Full Stack development learning journey** through
 
 It covers C#/.NET, relational databases, data access, ASP.NET Core, JavaScript, introductory Angular work and an ongoing Java path focused on object-oriented programming before moving towards Spring Boot and a complete Java web stack.
 
-The repository intentionally keeps exercises at different stages of the learning process rather than rewriting everything as polished production code.
+Exercises are intentionally kept in their learning context so the progression from fundamentals to more structured applications remains visible.
 
 ---
 
