@@ -1,21 +1,44 @@
-### Exo01
-Creer une DB avec une table Voiture qui contient ID, Marque, Model.
-- Faire une premiere migration
+# Entity Framework Core — exercices
 
-Ajouter une plaque à la Voiture
+Petite série d'exercices consacrée à la découverte d'**Entity Framework Core**, des migrations et des relations entre entités.
 
-- Faire une seconde migration
+## Exercice 1 — Voitures
 
-Ajoutez les contraintes qui vous semble necessaire.
+Créer une base de données contenant une entité `Auto` / voiture avec notamment :
 
----
-### Exo02
-Créer un Garage Id Nom Adresse
+- un identifiant ;
+- une marque ;
+- un modèle.
 
-Chaque Garage peut avoir un nombre X De voitures.
+Étapes :
 
-Ajouter nouvelle migration.
+1. créer une première migration ;
+2. ajouter ensuite une plaque d'immatriculation ;
+3. créer une seconde migration ;
+4. ajouter les contraintes utiles au modèle.
 
-Tentez de créer un garage en DB avec 3 Voitures. Et Faites une recherche dans le garage sur la plaque.
+## Exercice 2 — Garages
 
-Recherche en ligne => Indice => Utiliser le Include de Linq
+Ajouter une entité `Garage` comportant un identifiant, un nom et une adresse.
+
+Un garage peut contenir plusieurs voitures.
+
+Objectifs :
+
+1. modéliser la relation entre `Garage` et les voitures ;
+2. créer une nouvelle migration ;
+3. enregistrer un garage contenant plusieurs voitures ;
+4. charger les voitures associées au garage ;
+5. effectuer une recherche sur la plaque.
+
+L'exercice introduit notamment le chargement des relations avec `Include`.
+
+## Notions travaillées
+
+- `DbContext` ;
+- entités et relations ;
+- migrations ;
+- contraintes de modèle ;
+- navigation entre entités ;
+- requêtes LINQ ;
+- chargement avec `Include`.
