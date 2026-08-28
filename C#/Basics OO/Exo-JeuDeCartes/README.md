@@ -32,7 +32,7 @@ Exo-JeuDeCartes
 ├── Objets
 │ ├── Carte.cs
 │ ├── Paquet.cs
-│ └── Personnes.cs
+│ └── Personne.cs
 │
 ├── Program.cs
 ├── Exo-JeuDeCartes.csproj
