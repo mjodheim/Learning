@@ -1,0 +1,47 @@
+﻿@model List<JsonPlaceholderCRUD.Models.Post>
+@{
+    ViewBag.Title = "Liste des posts";
+    Layout = "_Layout";
+}
+
+
+@if (@TempData["SuccessMessage"] is string message)
+{
+    <div class="alert alert-success">@message</div>
+}
+
+
+<h2 class="text-center text-primary">Liste des posts</h2>
+
+<a class="btn btn-success mb-4" asp-action="Create">➕ Créer un nouveau post</a>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Post post in Model)
+            {
+                <tr>
+                    <td>@post.Id</td>
+                    <td>@post.Title</td>
+                    <td>
+                        <a class= "btn btn-primary" asp-controller="Post" asp-action="Details" asp-route-id="@post.Id">Détails</a>
+                        <a class= "btn btn-info" asp-controller="Post" asp-action="Edit" asp-route-id="@post.Id">Éditer</a>
+                        <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id">X</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="alert alert-warning">Aucun post trouvé.</p>
+}

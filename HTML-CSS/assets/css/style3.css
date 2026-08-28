@@ -1,0 +1,38 @@
+#navbar {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: orange;
+}
+
+#navbar > p {
+    background-color: gray;
+    border: 2px dotted blue;
+    padding: 10px;
+    margin: 10px;
+}
+
+#navbar > p:nth-child(even) {
+    align-self: flex-end;
+}
+
+#navbar > p:nth-child(3) {
+    align-self: flex-start;
+}
+
+#main-content > ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: orange;
+    margin-top: 20px;
+}
+
+#main-content > ul > li {
+    padding: 10px;
+    margin: 10px;
+
+}

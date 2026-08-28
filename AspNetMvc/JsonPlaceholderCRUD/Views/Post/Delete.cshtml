@@ -1,0 +1,22 @@
+﻿@model JsonPlaceholderCRUD.Models.Post
+@{
+    ViewBag.Title = "Suppression d'un post";
+    Layout = "_Layout";
+}
+
+<h2>@TempData["TitrePage"]</h2>
+<div>
+    <form asp-action="Delete" method="post">
+        <p>Id du post : @Model.Id</p>
+        <p>Titre du post : @Model.Title</p>
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Title" />
+
+        <button class="btn btn-outline-danger" 
+                type="submit" 
+                onclick="return confirm('Supprimer le post « @Model.Title » ?')">
+            Supprimer
+        </button>
+    </form>
+</div>

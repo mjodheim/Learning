@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Formulaire</title>
+</head>
+<body class="form-body">
+    <div class="form-container">
+        <h1 class="form-title">Inscrivez-vous (2):</h1><br><br>
+        <form action="formulaire.php" method="post"> 
+            <p>
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required><br><br>
+            </p>
+            <p>
+                <label for="inscription-du">Inscription du:</label>
+                <input type="date" id="inscription-du" name="inscription-du" required><br><br>
+            </p>
+            <p>
+                <label for="inscription-au">au:</label>
+                <input type="date" id="inscription-au" name="inscription-au" required><br><br>
+            </p>
+            <p>
+                <label for="site-web">Site web :</label>
+                <input type="url" id="site-web" name="site-web" placeholder="http://"><br><br>
+            </p>
+            <p>
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required><br><br>
+            </p>
+            <p>
+                <label for="Inscription">Inscription</label>
+                <input type="text" id="Inscription" name="Inscription" value="Au site Zs4"><br><br>
+            </p>
+
+            <p>
+                <input type="submit" value="Envoyer">
+            </p>
+    </div>
+</body>
+</html>

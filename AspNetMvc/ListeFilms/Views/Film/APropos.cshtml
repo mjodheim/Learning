@@ -1,0 +1,21 @@
+@{
+    ViewBag.Title = "À propos";
+    Layout = "_Layout";
+}
+
+<h2>À propos</h2>
+
+@if (TempData["Message"] is string message)
+{
+    <div class="alert alert-success">@message</div>
+}
+
+<p>Nombre de films dans le catalogue : <strong>@ViewData["NbFilms"]</strong></p>
+
+<h4>Genres disponibles</h4>
+<ul>
+    @foreach (var genre in (List<string>)ViewData["Genres"]!)
+    {
+        <li>@genre</li>
+    }
+</ul>

@@ -1,0 +1,27 @@
+﻿@model JsonPlaceholderCRUD.Models.Post
+@{
+    ViewBag.Title = "Création d'un post";
+    Layout = "_Layout";
+}
+
+<h2>@TempData["TitrePage"]</h2>
+
+<form class="row g-3" asp-action="Create" method="post">
+    <div>
+        <label class="form-label" asp-for="Title"></label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label class="form-label" asp-for="Body"></label>
+        <input class="form-control" asp-for="Body"/>
+        <span class="text-danger" asp-validation-for="Body"></span>
+    </div>
+    <div>
+        <label class="form-label" asp-for="UserId"></label>
+        <input class="form-control" asp-for="UserId"/>
+        <span class="text-danger" asp-validation-for="UserId"></span>
+    </div>
+    <button class="btn btn-primary" type="submit">Créer</button>
+    <a class="btn btn-danger" asp-action="Index">Annuler</a>
+</form>

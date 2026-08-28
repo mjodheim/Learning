@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GestBanque/GestBanque.csproj" />
+  <Project Path="Models/Models.csproj" />
+</Solution>
