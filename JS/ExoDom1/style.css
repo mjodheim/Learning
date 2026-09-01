@@ -1,0 +1,12 @@
+.couleur {
+    color: red;
+}
+
+.police {
+    font-family: Arial, sans-serif;
+}
+
+.selectionne {
+    font-weight: bold;
+    color: green;
+}
