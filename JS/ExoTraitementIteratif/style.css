@@ -6,4 +6,25 @@
     text-align: center;
     line-height: 50px; /* Centrer verticalement le texte */
     margin: 2px;
+    border-radius: 10%;
+}
+
+.case-rouge {
+    background-color: rgb(165, 0, 0);
+}
+
+.case-verte {
+    background-color: green;
+}
+
+.case-verte:hover {
+    background-color: chartreuse;
+}
+
+.case-rouge:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+#boutons {
+    margin-bottom: 5px;
 }

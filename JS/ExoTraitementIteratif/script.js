@@ -25,9 +25,9 @@ btnGenerer.addEventListener('click', () => {
         const numero = parseInt(caseDiv.textContent, 10);
 
         if (numero % 3 === 0) {
-            caseDiv.style.backgroundColor = 'red';
+            caseDiv.classList.add('case-rouge');
         } else {
-            caseDiv.style.backgroundColor = 'green';
+            caseDiv.classList.add('case-verte');
         }
 
         i++;
