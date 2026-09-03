@@ -6,29 +6,36 @@ const erreur = document.getElementById("erreur");
 
 btnAjouter.addEventListener("click", () => {
 
-    const fruit = inputFruit.value;
+    const fruit = inputFruit.value.trim();
 
-    erreur.textContent = fruit === "" ? "Veuillez entrer un fruit." : "";
+    if (fruit === "") {
 
-    const li = document.createElement("li");
+        erreur.textContent = "Veuillez entrer un fruit.";
 
-    li.textContent = fruit;
+    } else {
 
-    const btnSupprimer = document.createElement("button");
+        erreur.textContent = "";
 
-    btnSupprimer.textContent = "Supprimer";
+        const li = document.createElement("li");
 
-    btnSupprimer.addEventListener("click", () => {
-        li.remove();
-    });
+        li.textContent = fruit;
 
-    li.appendChild(btnSupprimer);
+        const btnSupprimer = document.createElement("button");
 
-    liste.appendChild(li);
+        btnSupprimer.textContent = "Supprimer";
 
-    inputFruit.value = "";
+        btnSupprimer.addEventListener("click", () => {
+            li.remove();
+        });
+
+        li.appendChild(btnSupprimer);
+
+        liste.appendChild(li);
+
+        inputFruit.value = "";
+    }
+
 });
-
 
 btnSupprimerTout.addEventListener("click", () => {
     liste.innerHTML = "";
