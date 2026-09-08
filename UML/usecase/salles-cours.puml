@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+
+actor Étudiant
+actor Enseignant
+actor "Enseignant Responsable" as Responsable
+
+Responsable --|> Enseignant
+
+rectangle "Système de gestion des salles" {
+    usecase "Consulter le planning\n des salles" as UC1
+    usecase "Réserver une salle" as UC2
+    usecase "Réserver du matériel" as UC3
+    usecase "Consulter son\n récapitulatif horaire" as UC4
+    usecase "Éditer le récapitulatif\n horaire d'une formation" as UC5
+}
+
+Étudiant --> UC1
+
+Enseignant --> UC1
+Enseignant --> UC2
+Enseignant --> UC3
+Enseignant --> UC4
+
+Responsable --> UC5
+
+@enduml

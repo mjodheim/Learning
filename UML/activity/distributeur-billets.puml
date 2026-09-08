@@ -1,0 +1,45 @@
+@startuml
+
+start
+
+:Introduire la carte;
+:Vérifier la validité de la carte;
+
+if (Carte valide ?) then (oui)
+
+    :Inviter le client à saisir le code;
+    :Saisir le code;
+
+    while (Code incorrect et moins de 3 échecs ?) is (oui)
+        :Inviter à saisir à nouveau le code;
+        :Saisir le code;
+    endwhile (non)
+
+    if (Code correct ?) then (oui)
+
+        :Indiquer le montant à retirer;
+        :Consulter le solde du compte;
+
+        while (Solde insuffisant ?) is (oui)
+            :Informer le client;
+            :Saisir un montant inférieur;
+            :Consulter le solde du compte;
+        endwhile (non)
+
+        :Restituer la carte;
+        :Délivrer les billets;
+        :Délivrer le reçu;
+
+    else (non - 3 échecs)
+
+        :Avaler la carte;
+
+    endif
+
+else (non)
+    stop
+endif
+
+stop
+
+@enduml

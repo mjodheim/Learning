@@ -39,7 +39,7 @@ if (prochainAnniversaire < dateDuJour) {
 
 const options = {
     day: "numeric",
-    month: "long",
+    month: "long", // pour afficher le mois en toutes lettres, à la différence de "short" qui affiche le mois en 3 lettres
     year: "numeric"
 };
 
