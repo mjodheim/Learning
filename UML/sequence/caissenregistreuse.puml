@@ -1,0 +1,32 @@
+@startuml
+title Caisse enregistreuse - Paiement en liquide
+
+actor Client
+actor Caissier
+participant Caisse
+
+Client -> Caissier : Présente les articles
+
+loop Pour chaque article
+    Caissier -> Caisse : Saisir numéro d'identification\net quantité
+    Caisse --> Caissier : Afficher libellé et prix
+end
+
+Caissier -> Caisse : Signaler fin de vente
+Caisse --> Caissier : Afficher montant total
+
+Caissier -> Client : Annoncer montant total
+Client -> Caissier : Choisir paiement en liquide\net remettre l'argent
+
+Caissier -> Caisse : Saisir montant reçu
+Caisse --> Caissier : Afficher montant à rendre
+
+Caissier -> Client : Rendre la monnaie
+
+Caisse -> Caisse : Enregistrer la vente
+Caisse -> Caisse : Imprimer le ticket
+
+Caisse --> Caissier : Ticket de caisse
+Caissier -> Client : Donner le ticket
+
+@enduml
