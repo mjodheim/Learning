@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Moto</title>
+</head>
+<body>
+<h1 th:text="${moto.brand} + ' ' + ${moto.model}"></h1>
+<p th:text="${moto.cc} + ' cc'"></p>
+
+<img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
+     th:src="${moto.imageUrl}"
+     alt="Moto"
+     width="500">
+
+<p>
+    <a th:href="@{/motos/{id}/update(id=${moto.id})}">Modifier</a>
+</p>
+
+<form th:action="@{/motos/{id}/delete(id=${moto.id})}" method="post">
+    <button type="submit">Supprimer</button>
+</form>
+
+<p><a th:href="@{/motos}">Retour à la liste</a></p>
+</body>
+</html>

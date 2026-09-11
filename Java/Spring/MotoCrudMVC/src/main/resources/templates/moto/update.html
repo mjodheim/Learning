@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier une moto</title>
+</head>
+<body>
+<h1>Modifier une moto</h1>
+
+<form th:action="@{/motos/{id}/update(id=${moto.id})}" method="post" th:object="${moto}">
+    <div>
+        <label for="brand">Marque</label>
+        <input type="text" id="brand" th:field="*{brand}">
+        <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
+    </div>
+    <div>
+        <label for="model">Modèle</label>
+        <input type="text" id="model" th:field="*{model}">
+        <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+    </div>
+    <div>
+        <label for="cc">Cylindrée</label>
+        <input type="number" id="cc" th:field="*{cc}">
+        <span th:if="${#fields.hasErrors('cc')}" th:errors="*{cc}"></span>
+    </div>
+    <div>
+        <label for="imageUrl">URL de l'image</label>
+        <input type="text" id="imageUrl" th:field="*{imageUrl}">
+    </div>
+    <button type="submit">Enregistrer</button>
+</form>
+
+<p><a th:href="@{/motos/{id}(id=${moto.id})}">Annuler</a></p>
+</body>
+</html>
