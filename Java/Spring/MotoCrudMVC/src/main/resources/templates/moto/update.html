@@ -55,10 +55,17 @@
                             </div>
 
                             <div class="col-12">
+                                <label for="description" class="form-label fw-semibold">Description</label>
+                                <textarea id="description" class="form-control" th:field="*{description}"
+                                       rows="3" placeholder="Quelques mots sur cette bécane...">
+                                </textarea>
+                            </div>
+
+                            <div class="col-12">
                                 <label for="imageUrl" class="form-label fw-semibold">URL de l'image</label>
                                 <input type="url" id="imageUrl" class="form-control" th:field="*{imageUrl}"
                                        placeholder="https://...">
-                                <div class="form-text">Laisse vide si tu ne veux pas afficher d'image.</div>
+                                <div class="form-text">Laisser vide pour pas afficher d'image.</div>
                             </div>
                         </div>
 

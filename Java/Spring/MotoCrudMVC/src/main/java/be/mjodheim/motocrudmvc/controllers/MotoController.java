@@ -120,6 +120,7 @@ public class MotoController {
         existingMoto.setCc(moto.getCc());
         existingMoto.setImageUrl(moto.getImageUrl());
         existingMoto.setCategory(category);
+        existingMoto.setDescription(moto.getDescription());
 
         motoRepository.save(existingMoto);
 

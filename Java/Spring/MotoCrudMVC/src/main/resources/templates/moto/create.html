@@ -10,7 +10,7 @@
             <div class="mb-4">
                 <a class="text-decoration-none text-secondary" th:href="@{/motos}">← Retour à la liste</a>
                 <h1 class="page-title fw-bold mt-3 mb-1">Ajouter une moto</h1>
-                <p class="text-secondary mb-0">Renseigne les informations de la nouvelle moto.</p>
+                <p class="text-secondary mb-0">Informations de la nouvelle moto.</p>
             </div>
 
             <div class="card form-card">
@@ -55,11 +55,17 @@
                                 </select>
                             </div>
 
+                            <div class="col-12 col-md-6">
+                                <label for="description" class="form-label fw-semibold">Description</label>
+                                <textarea id="description" class="form-control" th:field="*{description}"
+                                rows="3" placeholder="Quelques mots sur cette bécane..."></textarea>
+                            </div>
+
                             <div class="col-12">
                                 <label for="imageUrl" class="form-label fw-semibold">URL de l'image</label>
                                 <input type="url" id="imageUrl" class="form-control" th:field="*{imageUrl}"
                                        placeholder="https://...">
-                                <div class="form-text">Optionnel — colle l'URL d'une image de la moto.</div>
+                                <div class="form-text">Optionnel</div>
                             </div>
                         </div>
 

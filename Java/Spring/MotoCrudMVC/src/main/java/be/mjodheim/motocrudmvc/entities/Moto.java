@@ -30,16 +30,21 @@ public class Moto {
     private String imageUrl;
 
     @Getter @Setter
+    @Column(length = 500)
+    private String description;
+
+    @Getter @Setter
     @ManyToOne
     @JoinColumn(name = "category_id",  nullable = false)
     private Category category;
 
-    public Moto(String brand, String model, int cc, String imageUrl, Category  category) {
+    public Moto(String brand, String model, int cc, String imageUrl, String description, Category  category) {
         this();
         this.brand = brand;
         this.model = model;
         this.cc = cc;
         this.imageUrl = imageUrl;
+        this.description = description;
         this.category = category;
     }
 }
