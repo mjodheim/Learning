@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/motos")
@@ -26,13 +25,15 @@ public class MotoController {
             @RequestParam(required = false) String brand,
             Model model
     ) {
+        List<Moto> allMotos = motoRepository.findAll();
+
         List<Moto> motos = (brand == null || brand.isBlank())
-                ? motoRepository.findAll()
-                : motoRepository.findAll().stream()
+                ? allMotos
+                : allMotos.stream()
                 .filter(moto -> brand.equalsIgnoreCase(moto.getBrand()))
                 .toList();
 
-        List<String> brands = motoRepository.findAll().stream()
+        List<String> brands = allMotos.stream()
                 .map(Moto::getBrand)
                 .distinct()
                 .sorted()
@@ -66,8 +67,8 @@ public class MotoController {
     @PostMapping("/create")
     public String create(
             @ModelAttribute Moto moto,
-            @RequestParam Long categoryId,
             BindingResult bindingResult,
+            @RequestParam Long categoryId,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
@@ -91,6 +92,7 @@ public class MotoController {
         Moto moto = motoRepository.findById(id).orElseThrow();
 
         model.addAttribute("moto", moto);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "moto/update";
     }
 
@@ -98,8 +100,8 @@ public class MotoController {
     public String update(
             @PathVariable Long id,
             @ModelAttribute Moto moto,
-            @RequestParam Long categoryId,
             BindingResult bindingResult,
+            @RequestParam Long categoryId,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
@@ -126,7 +128,6 @@ public class MotoController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-
         Moto existingMoto = motoRepository.findById(id).orElseThrow();
 
         motoRepository.delete(existingMoto);
