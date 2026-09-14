@@ -1,34 +1,74 @@
 <!doctype html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Motos</title>
-</head>
-<body>
-<h1>Liste des motos</h1>
+<head th:replace="~{fragments/layout :: head('Motos')}"></head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="~{fragments/layout :: navbar}"></div>
 
-<p><a th:href="@{/motos/create}">Ajouter une moto</a></p>
+<main class="container py-5 flex-grow-1">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <p class="text-uppercase text-danger fw-semibold small mb-1">Garage</p>
+            <h1 class="page-title fw-bold mb-1">Liste des motos</h1>
+            <p class="text-secondary mb-0">Parcours les motos enregistrées dans l'application.</p>
+        </div>
+        <a class="btn btn-primary px-4" th:href="@{/motos/create}">+ Ajouter une moto</a>
+    </div>
 
-<form method="get" th:action="@{/motos}">
-    <label for="brand">Filtrer par marque</label>
-    <select name="brand" id="brand" onchange="this.form.submit()">
-        <option value="">Toutes les marques</option>
-        <option th:each="motoBrand : ${brands}"
-                th:value="${motoBrand}"
-                th:text="${motoBrand}"
-                th:selected="${motoBrand == brand}">
-        </option>
-    </select>
-</form>
+    <div class="card filter-card mb-4">
+        <div class="card-body">
+            <form method="get" th:action="@{/motos}" class="row g-3 align-items-end">
+                <div class="col-12 col-md-5">
+                    <label for="brand" class="form-label fw-semibold">Filtrer par marque</label>
+                    <select name="brand" id="brand" class="form-select" onchange="this.form.submit()">
+                        <option value="">Toutes les marques</option>
+                        <option th:each="motoBrand : ${brands}"
+                                th:value="${motoBrand}"
+                                th:text="${motoBrand}"
+                                th:selected="${motoBrand == brand}">
+                        </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<ul>
-    <li th:each="moto : ${motos}">
-        <a th:href="@{/motos/{id}(id=${moto.id})}">
-            <span th:text="${moto.brand} + ' ' + ${moto.model}"></span>
-            <span th:text="' - ' + ${moto.cc} + ' cc'"></span>
-            <span th:text="' - ' + ${moto.category.name}"></span>
-        </a>
-    </li>
-</ul>
+    <div class="row g-4" th:if="${!#lists.isEmpty(motos)}">
+        <div class="col-12 col-md-6 col-lg-4" th:each="moto : ${motos}">
+            <article class="card moto-card h-100">
+                <img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
+                     th:src="${moto.imageUrl}"
+                     th:alt="${moto.brand + ' ' + moto.model}"
+                     class="moto-image">
+
+                <div th:unless="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
+                     class="moto-placeholder" aria-label="Aucune image">
+                    🏍️
+                </div>
+
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-3">
+                        <span class="badge rounded-pill category-badge"
+                              th:text="${moto.category.name}">Catégorie</span>
+                    </div>
+
+                    <h2 class="h4 fw-bold mb-2" th:text="${moto.brand + ' ' + moto.model}">Moto</h2>
+                    <p class="text-secondary mb-4" th:text="${moto.cc + ' cc'}">0 cc</p>
+
+                    <a class="btn btn-outline-dark mt-auto"
+                       th:href="@{/motos/{id}(id=${moto.id})}">Voir la fiche</a>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <div class="alert alert-light border text-center py-5" th:if="${#lists.isEmpty(motos)}">
+        <h2 class="h5">Aucune moto trouvée</h2>
+        <p class="text-secondary mb-3">Aucune moto ne correspond à ce filtre.</p>
+        <a class="btn btn-primary" th:href="@{/motos}">Afficher toutes les motos</a>
+    </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
 </body>
 </html>
