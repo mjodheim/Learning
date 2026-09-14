@@ -88,4 +88,55 @@ public class ProductController {
 
         return "redirect:/product";
     }
+
+    @GetMapping("/{id}/update")
+    public String update(
+            @PathVariable Long id,
+            Model model
+    ){
+        Product product = FakeDb.products.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElseThrow();
+
+        model.addAttribute("product", product);
+        model.addAttribute("categories", FakeDb.categories);
+        model.addAttribute("id",id);
+
+        return "product/update";
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(
+            @PathVariable Long id,
+            @Valid @ModelAttribute(name = "product") Product product,
+            BindingResult bindingResult,
+            Model model
+    ){
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("product", product);
+            model.addAttribute("categories", FakeDb.categories);
+            return "product/update";
+        }
+
+        Category category = FakeDb.categories.stream()
+                .filter(c -> c.getId().equals(product.getCategoryId()))
+                .findFirst().orElseThrow();
+
+        product.setCategory(category);
+
+        FakeDb.products.replaceAll(p -> {
+                if(p.getId().equals(id)){
+                    p.setName(product.getName());
+                    p.setCategory(product.getCategory());
+                    p.setPrice(product.getPrice());
+                    p.setCategoryId(product.getCategoryId());
+                    p.setDescription(product.getDescription());
+                    p.setDescription(product.getDescription());
+                }
+                return p;
+        });
+
+        return "redirect:/product";
+    }
 }

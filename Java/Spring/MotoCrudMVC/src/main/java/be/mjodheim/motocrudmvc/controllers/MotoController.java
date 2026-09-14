@@ -1,18 +1,25 @@
 package be.mjodheim.motocrudmvc.controllers;
 
-import be.mjodheim.motocrudmvc.datas.FakeDb;
-import be.mjodheim.motocrudmvc.models.Moto;
-import jakarta.validation.Valid;
+import be.mjodheim.motocrudmvc.entities.Category;
+import be.mjodheim.motocrudmvc.entities.Moto;
+import be.mjodheim.motocrudmvc.repositories.CategoryRepository;
+import be.mjodheim.motocrudmvc.repositories.MotoRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/motos")
+@RequiredArgsConstructor
 public class MotoController {
+
+    private final MotoRepository motoRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping
     public String index(
@@ -20,12 +27,12 @@ public class MotoController {
             Model model
     ) {
         List<Moto> motos = (brand == null || brand.isBlank())
-                ? FakeDb.motos
-                : FakeDb.motos.stream()
+                ? motoRepository.findAll()
+                : motoRepository.findAll().stream()
                 .filter(moto -> brand.equalsIgnoreCase(moto.getBrand()))
                 .toList();
 
-        List<String> brands = FakeDb.motos.stream()
+        List<String> brands = motoRepository.findAll().stream()
                 .map(Moto::getBrand)
                 .distinct()
                 .sorted()
@@ -43,10 +50,7 @@ public class MotoController {
             @PathVariable Long id,
             Model model
     ) {
-        Moto moto = FakeDb.motos.stream()
-                .filter(m -> m.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
+        Moto moto = motoRepository.findById(id).orElseThrow();
 
         model.addAttribute("moto", moto);
         return "moto/details";
@@ -55,65 +59,78 @@ public class MotoController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("moto", new Moto());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "moto/create";
     }
 
     @PostMapping("/create")
     public String create(
-            @Valid @ModelAttribute Moto moto,
-            BindingResult bindingResult
+            @ModelAttribute Moto moto,
+            @RequestParam Long categoryId,
+            BindingResult bindingResult,
+            Model model
     ) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
             return "moto/create";
         }
 
-        moto.setId(FakeDb.nextId());
-        FakeDb.motos.add(moto);
+        Category category = categoryRepository.findById(categoryId).orElseThrow();
+        moto.setCategory(category);
+
+        motoRepository.save(moto);
 
         return "redirect:/motos";
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/update/{id}")
     public String update(
             @PathVariable Long id,
             Model model
     ) {
-        Moto moto = FakeDb.motos.stream()
-                .filter(m -> m.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
+        Moto moto = motoRepository.findById(id).orElseThrow();
 
         model.addAttribute("moto", moto);
         return "moto/update";
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/update/{id}")
     public String update(
             @PathVariable Long id,
-            @Valid @ModelAttribute Moto moto,
-            BindingResult bindingResult
+            @ModelAttribute Moto moto,
+            @RequestParam Long categoryId,
+            BindingResult bindingResult,
+            Model model
     ) {
         if (bindingResult.hasErrors()) {
-            moto.setId(id);
+            model.addAttribute("categories", categoryRepository.findAll());
             return "moto/update";
         }
 
-        Moto existingMoto = FakeDb.motos.stream()
-                .filter(m -> m.getId().equals(id))
-                .findFirst()
+        Moto existingMoto = motoRepository.findById(id)
+                .orElseThrow();
+
+        Category category = categoryRepository.findById(categoryId)
                 .orElseThrow();
 
         existingMoto.setBrand(moto.getBrand());
         existingMoto.setModel(moto.getModel());
         existingMoto.setCc(moto.getCc());
         existingMoto.setImageUrl(moto.getImageUrl());
+        existingMoto.setCategory(category);
+
+        motoRepository.save(existingMoto);
 
         return "redirect:/motos/" + id;
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        FakeDb.motos.removeIf(moto -> moto.getId().equals(id));
+
+        Moto existingMoto = motoRepository.findById(id).orElseThrow();
+
+        motoRepository.delete(existingMoto);
+
         return "redirect:/motos";
     }
 }

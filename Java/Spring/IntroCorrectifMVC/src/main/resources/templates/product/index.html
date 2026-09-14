@@ -26,8 +26,9 @@
     <ul>
         <li th:each="p : ${products}">
             <p th:text="${p.name}"></p>
-            <img th:src="${p.imageUrl}" width="200" height="200">
-            <button><a th:href="@{/product/{id}(id=${p.id})}">Details</a></button>
+            <img th:src="${p.imageUrl}" width="200" height="200" th:alt="${p.name}">
+            <a th:href="@{/product/{id}(id=${p.id})}"><button>Details</button></a>
+            <a th:href="@{/product/{id}/update(id=${p.id})}"><button>Update</button></a>
         </li>
     </ul>
 </body>

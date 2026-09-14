@@ -26,6 +26,7 @@
         <a th:href="@{/motos/{id}(id=${moto.id})}">
             <span th:text="${moto.brand} + ' ' + ${moto.model}"></span>
             <span th:text="' - ' + ${moto.cc} + ' cc'"></span>
+            <span th:text="' - ' + ${moto.category.name}"></span>
         </a>
     </li>
 </ul>

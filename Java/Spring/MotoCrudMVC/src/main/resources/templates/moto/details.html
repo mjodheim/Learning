@@ -7,6 +7,7 @@
 <body>
 <h1 th:text="${moto.brand} + ' ' + ${moto.model}"></h1>
 <p th:text="${moto.cc} + ' cc'"></p>
+<p th:text="${moto.category.name}"></p>
 
 <img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
      th:src="${moto.imageUrl}"
@@ -14,10 +15,10 @@
      width="500">
 
 <p>
-    <a th:href="@{/motos/{id}/update(id=${moto.id})}">Modifier</a>
+    <a th:href="@{/motos/update/{id} (id=${moto.id})}">Modifier</a>
 </p>
 
-<form th:action="@{/motos/{id}/delete(id=${moto.id})}" method="post">
+<form th:action="@{/motos/delete/{id} (id=${moto.id})}" method="post">
     <button type="submit">Supprimer</button>
 </form>
 

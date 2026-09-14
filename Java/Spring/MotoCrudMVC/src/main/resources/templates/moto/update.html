@@ -7,7 +7,7 @@
 <body>
 <h1>Modifier une moto</h1>
 
-<form th:action="@{/motos/{id}/update(id=${moto.id})}" method="post" th:object="${moto}">
+<form th:action="@{/motos/update/{id}(id=${moto.id})}" method="post" th:object="${moto}">
     <div>
         <label for="brand">Marque</label>
         <input type="text" id="brand" th:field="*{brand}">
@@ -26,6 +26,18 @@
     <div>
         <label for="imageUrl">URL de l'image</label>
         <input type="text" id="imageUrl" th:field="*{imageUrl}">
+    </div>
+    <div>
+        <label for="category">Catégorie</label>
+
+        <select id="category" name="categoryId">
+            <option value="">-- Choisir une catégorie --</option>
+
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}">
+            </option>
+        </select>
     </div>
     <button type="submit">Enregistrer</button>
 </form>
