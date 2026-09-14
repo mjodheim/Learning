@@ -1,47 +1,80 @@
 <!doctype html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter une moto</title>
-</head>
-<body>
-<h1>Ajouter une moto</h1>
+<head th:replace="~{fragments/layout :: head('Ajouter une moto')}"></head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="~{fragments/layout :: navbar}"></div>
 
-<form th:action="@{/motos/create}" method="post" th:object="${moto}">
-    <div>
-        <label for="brand">Marque</label>
-        <input type="text" id="brand" th:field="*{brand}">
-        <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
-    </div>
-    <div>
-        <label for="model">Modèle</label>
-        <input type="text" id="model" th:field="*{model}">
-        <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
-    </div>
-    <div>
-        <label for="cc">Cylindrée</label>
-        <input type="number" id="cc" th:field="*{cc}">
-        <span th:if="${#fields.hasErrors('cc')}" th:errors="*{cc}"></span>
-    </div>
-    <div>
-        <label for="imageUrl">URL de l'image</label>
-        <input type="text" id="imageUrl" th:field="*{imageUrl}">
-    </div>
-    <div>
-        <label for="category">Catégorie</label>
+<main class="container py-5 flex-grow-1">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="mb-4">
+                <a class="text-decoration-none text-secondary" th:href="@{/motos}">← Retour à la liste</a>
+                <h1 class="page-title fw-bold mt-3 mb-1">Ajouter une moto</h1>
+                <p class="text-secondary mb-0">Renseigne les informations de la nouvelle moto.</p>
+            </div>
 
-        <select id="category" name="categoryId">
-            <option value="">-- Choisir une catégorie --</option>
+            <div class="card form-card">
+                <div class="card-body p-4 p-md-5">
+                    <form th:action="@{/motos/create}" method="post" th:object="${moto}">
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6">
+                                <label for="brand" class="form-label fw-semibold">Marque</label>
+                                <input type="text" id="brand" class="form-control" th:field="*{brand}"
+                                       placeholder="Ex. Honda">
+                                <div class="invalid-feedback d-block"
+                                     th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></div>
+                            </div>
 
-            <option th:each="category : ${categories}"
-                    th:value="${category.id}"
-                    th:text="${category.name}">
-            </option>
-        </select>
+                            <div class="col-12 col-md-6">
+                                <label for="model" class="form-label fw-semibold">Modèle</label>
+                                <input type="text" id="model" class="form-control" th:field="*{model}"
+                                       placeholder="Ex. CBR 600 RR">
+                                <div class="invalid-feedback d-block"
+                                     th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="cc" class="form-label fw-semibold">Cylindrée</label>
+                                <div class="input-group">
+                                    <input type="number" id="cc" class="form-control" th:field="*{cc}" min="1"
+                                           placeholder="599">
+                                    <span class="input-group-text">cc</span>
+                                </div>
+                                <div class="invalid-feedback d-block"
+                                     th:if="${#fields.hasErrors('cc')}" th:errors="*{cc}"></div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="category" class="form-label fw-semibold">Catégorie</label>
+                                <select id="category" name="categoryId" class="form-select" required>
+                                    <option value="" selected disabled>Choisir une catégorie</option>
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.name}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="imageUrl" class="form-label fw-semibold">URL de l'image</label>
+                                <input type="url" id="imageUrl" class="form-control" th:field="*{imageUrl}"
+                                       placeholder="https://...">
+                                <div class="form-text">Optionnel — colle l'URL d'une image de la moto.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-5">
+                            <a class="btn btn-outline-secondary" th:href="@{/motos}">Annuler</a>
+                            <button class="btn btn-primary px-4" type="submit">Créer la moto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit">Créer</button>
-</form>
+</main>
 
-<p><a th:href="@{/motos}">Retour à la liste</a></p>
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
 </body>
 </html>
