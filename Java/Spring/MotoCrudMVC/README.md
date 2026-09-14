@@ -1,53 +1,197 @@
-# CRUD Motos — Spring Boot MVC
+# 🏍️ MotoCrudMVC — Spring MVC avec PostgreSQL
 
-Exercice de formation consacré à la réalisation d'un **CRUD complet en Spring Boot MVC** autour d'un petit catalogue de motos.
+Exercice de formation consacré à la réalisation d'un **CRUD complet en Spring Boot MVC** autour d'un catalogue de motos.
 
-Le projet part d'une version avec données en mémoire puis évolue vers une persistance réelle avec **Spring Data JPA, Hibernate et PostgreSQL**. L'objectif est surtout de pratiquer le cycle MVC, les formulaires Thymeleaf, les relations entre entités et l'utilisation des repositories.
+Le projet a d'abord été réalisé avec des données en mémoire (`FakeDb`), puis migré vers une vraie persistance avec **Spring Data JPA, Hibernate et PostgreSQL**.
 
-## Notions travaillées
+---
 
-- Spring Boot MVC ;
-- contrôleurs et routage GET / POST ;
-- Thymeleaf ;
-- Spring Data JPA et repositories ;
-- Hibernate ;
-- PostgreSQL ;
-- entités JPA et relation `@ManyToOne` ;
-- opérations Create, Read, Update et Delete ;
-- filtres combinés par marque et catégorie ;
-- initialisation de données avec `CommandLineRunner` ;
-- Bootstrap pour une interface simple et responsive ;
-- variables d'environnement pour la configuration de la base.
+## 🎯 Objectifs d'apprentissage
 
-## Énoncé de l'exercice
+Ce projet permet de pratiquer :
 
-Créer une application MVC permettant de gérer une collection de motos.
+- ✅ **Spring MVC** : contrôleurs, routes GET / POST et redirections ;
+- ✅ **JPA / Hibernate** : mapping des classes Java vers la base de données ;
+- ✅ **Repositories** : accès aux données avec Spring Data JPA ;
+- ✅ **Relations** : association entre `Moto` et `Category` avec `@ManyToOne` ;
+- ✅ **Thymeleaf** : affichage dynamique et formulaires ;
+- ✅ **CRUD** : Create, Read, Update et Delete ;
+- ✅ **Filtres** : filtrage combiné par marque et catégorie ;
+- ✅ **PostgreSQL** : persistance réelle des données ;
+- ✅ **Bootstrap** : mise en page simple et responsive ;
+- ✅ **Configuration** : utilisation de variables d'environnement pour la connexion à la base.
 
-### Entité `Moto`
+---
 
-- `id` (`Long`)
-- `brand` (`String`)
-- `model` (`String`)
-- `cc` (`int`)
-- `imageUrl` (`String`)
-- `description` (`String`)
-- `category` (`Category`)
+## 🗄️ Architecture de la base de données
 
-### Entité `Category`
+```mermaid
+erDiagram
+    CATEGORY ||--o{ MOTO : contains
 
-- `id` (`Long`)
-- `name` (`String`)
+    CATEGORY {
+        bigint id PK "Clé primaire auto-incrémentée"
+        varchar name "Nom de la catégorie"
+    }
 
-Une moto appartient à une catégorie via une relation `@ManyToOne`.
+    MOTO {
+        bigint id PK "Clé primaire auto-incrémentée"
+        varchar brand "Marque"
+        varchar model "Modèle"
+        int cc "Cylindrée"
+        varchar imageUrl "URL de l'image"
+        varchar description "Description"
+        bigint category_id FK "Référence à Category"
+    }
+```
 
-### Fonctionnalités
+Une catégorie peut être associée à plusieurs motos, tandis qu'une moto appartient à une seule catégorie.
 
-- afficher la liste des motos ;
-- consulter le détail d'une moto ;
+### Relation dans `Moto`
+
+```java
+@ManyToOne
+@JoinColumn(name = "category_id", nullable = false)
+private Category category;
+```
+
+**Concepts clés :**
+
+- `@Entity` : la classe représente une table en base de données ;
+- `@Id` : définit la clé primaire ;
+- `@GeneratedValue` : génère automatiquement l'identifiant ;
+- `@Column` : configure une colonne ;
+- `@ManyToOne` : plusieurs motos peuvent partager une catégorie ;
+- `@JoinColumn` : crée la clé étrangère `category_id`.
+
+---
+
+## 🔄 Flux d'une requête Spring MVC
+
+```mermaid
+sequenceDiagram
+    participant User as Navigateur
+    participant Controller as MotoController
+    participant Repo as MotoRepository
+    participant DB as PostgreSQL
+    participant View as Thymeleaf
+
+    User->>Controller: GET /motos/{id}
+    Controller->>Repo: findById(id)
+    Repo->>DB: SELECT ...
+    DB-->>Repo: Moto
+    Repo-->>Controller: Moto
+    Controller->>View: model.addAttribute("moto", moto)
+    View-->>User: HTML généré
+```
+
+Le contrôleur reçoit la requête, interroge le repository, récupère les données depuis PostgreSQL puis les transmet à la vue Thymeleaf.
+
+---
+
+## 📁 Structure du projet
+
+```text
+src/main/java/be/mjodheim/motocrudmvc/
+├── controllers/
+│   └── MotoController.java
+├── entities/
+│   ├── Moto.java
+│   └── Category.java
+├── repositories/
+│   ├── MotoRepository.java
+│   └── CategoryRepository.java
+└── initializers/
+    └── Seed.java
+
+src/main/resources/
+├── templates/
+│   ├── fragments/
+│   └── moto/
+├── static/css/
+└── application.yaml
+```
+
+---
+
+## ⚙️ Fonctionnalités
+
+- afficher toutes les motos ;
+- afficher le détail d'une moto ;
 - ajouter une moto ;
 - modifier une moto ;
 - supprimer une moto ;
-- filtrer la liste par marque et/ou catégorie ;
-- charger quelques motos et catégories au démarrage.
+- associer une moto à une catégorie ;
+- filtrer les motos par marque ;
+- filtrer les motos par catégorie ;
+- combiner les deux filtres ;
+- initialiser quelques catégories et motos au démarrage avec `CommandLineRunner`.
 
-> La connexion PostgreSQL est configurée avec `DB_URL`, `DB_USERNAME` et `DB_PASSWORD` afin de ne pas stocker les identifiants de base de données dans le dépôt.
+---
+
+## 🚀 Démarrer le projet
+
+### Prérequis
+
+- Java 25 ;
+- Maven ;
+- PostgreSQL.
+
+### Variables d'environnement
+
+La connexion à PostgreSQL n'est pas stockée en clair dans `application.yaml`.
+
+Le projet utilise :
+
+```text
+DB_URL=jdbc:postgresql://localhost:5432/postgres
+DB_USERNAME=postgres
+DB_PASSWORD=mot_de_passe
+```
+
+`application.yaml` référence ensuite ces variables :
+
+```yaml
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+```
+
+Elles peuvent par exemple être ajoutées dans la configuration de lancement IntelliJ.
+
+### Lancer l'application
+
+```bash
+./mvnw spring-boot:run
+```
+
+Puis ouvrir :
+
+```text
+http://localhost:8080/motos
+```
+
+---
+
+## 📚 Concepts retenus
+
+### Repository Pattern
+
+```java
+public interface MotoRepository extends JpaRepository<Moto, Long> {
+}
+```
+
+`JpaRepository` fournit directement les opérations courantes comme `findAll()`, `findById()`, `save()` et `delete()`.
+
+### MVC
+
+```text
+Model       → données et entités
+View        → templates Thymeleaf
+Controller  → traitement des requêtes HTTP
+```
+
+L'objectif principal de cet exercice est de comprendre le passage d'un CRUD MVC basé sur des données en mémoire vers une application utilisant une **base PostgreSQL réelle via JPA/Hibernate**.
