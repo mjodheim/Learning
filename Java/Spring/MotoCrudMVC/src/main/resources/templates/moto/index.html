@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head('Motos')}"></head>
+<head th:replace="~{fragments/layout :: head('Motos')}"><title>Motos</title></head>
 <body class="d-flex flex-column min-vh-100">
 <div th:replace="~{fragments/layout :: navbar}"></div>
 
@@ -16,11 +16,22 @@
 
     <div class="card filter-card mb-4">
         <div class="card-body">
-            <form method="get" th:action="@{/motos}" class="row g-3 align-items-end">
+            <form method="get"
+                  th:action="@{/motos}"
+                  class="row g-3 align-items-end">
+
                 <div class="col-12 col-md-5">
-                    <label for="brand" class="form-label fw-semibold">Filtrer par marque</label>
-                    <select name="brand" id="brand" class="form-select" onchange="this.form.submit()">
+                    <label for="brand" class="form-label fw-semibold">
+                        Filtrer par marque
+                    </label>
+
+                    <select name="brand"
+                            id="brand"
+                            class="form-select"
+                            onchange="this.form.submit()">
+
                         <option value="">Toutes les marques</option>
+
                         <option th:each="motoBrand : ${brands}"
                                 th:value="${motoBrand}"
                                 th:text="${motoBrand}"
@@ -28,6 +39,34 @@
                         </option>
                     </select>
                 </div>
+
+                <div class="col-12 col-md-5">
+                    <label for="category" class="form-label fw-semibold">
+                        Filtrer par catégorie
+                    </label>
+
+                    <select name="category"
+                            id="category"
+                            class="form-select"
+                            onchange="this.form.submit()">
+
+                        <option value="">Toutes les catégories</option>
+
+                        <option th:each="motoCategory : ${categories}"
+                                th:value="${motoCategory.name}"
+                                th:text="${motoCategory.name}"
+                                th:selected="${motoCategory.name == category}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <a class="btn btn-info w-120"
+                       th:href="@{/motos}">
+                        Réinitialiser
+                    </a>
+                </div>
+
             </form>
         </div>
     </div>
@@ -37,7 +76,7 @@
             <article class="card moto-card h-100">
                 <img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
                      th:src="${moto.imageUrl}"
-                     th:alt="${moto.brand + ' ' + moto.model}"
+                     th:alt="${moto.brand} + ' ' + ${moto.model}"
                      class="moto-image">
 
                 <div th:unless="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"

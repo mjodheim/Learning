@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/motos")
@@ -23,15 +25,24 @@ public class MotoController {
     @GetMapping
     public String index(
             @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String category,
             Model model
     ) {
         List<Moto> allMotos = motoRepository.findAll();
 
-        List<Moto> motos = (brand == null || brand.isBlank())
-                ? allMotos
-                : allMotos.stream()
-                .filter(moto -> brand.equalsIgnoreCase(moto.getBrand()))
-                .toList();
+        List<Moto> motos = new ArrayList<>(allMotos);
+
+        if (brand != null && !brand.isBlank()) {
+            motos = motos.stream()
+                    .filter(m -> brand.equalsIgnoreCase(m.getBrand()))
+                    .toList();
+        }
+
+        if (category != null && !category.isBlank()) {
+            motos = motos.stream()
+                    .filter(m -> category.equalsIgnoreCase(m.getCategory().getName()))
+                    .toList();
+        }
 
         List<String> brands = allMotos.stream()
                 .map(Moto::getBrand)
@@ -39,9 +50,13 @@ public class MotoController {
                 .sorted()
                 .toList();
 
+        List<Category> categories = categoryRepository.findAll();
+
         model.addAttribute("motos", motos);
         model.addAttribute("brands", brands);
         model.addAttribute("brand", brand);
+        model.addAttribute("categories", categories);
+        model.addAttribute("category", category);
 
         return "moto/index";
     }
