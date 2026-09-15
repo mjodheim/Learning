@@ -23,6 +23,10 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                 <a class="nav-link" th:href="@{/motos}">Les motos</a>
+                <a class="nav-link d-flex align-items-center gap-2" th:href="@{/cart}">
+                    <span>Panier</span>
+                    <span class="badge rounded-pill text-bg-light" th:text="${cartItemCount}">0</span>
+                </a>
                 <a class="btn btn-primary btn-sm px-3" th:href="@{/motos/create}">Ajouter une moto</a>
             </div>
         </div>
