@@ -49,6 +49,10 @@
                         </div>
                     </div>
 
+                    <form class="mb-3" th:action="@{/cart/add/{id}(id=${moto.id})}" method="post">
+                        <button class="btn btn-dark w-100" type="submit">Ajouter au panier</button>
+                    </form>
+
                     <div class="mt-auto d-flex flex-wrap gap-2">
                         <a class="btn btn-primary" th:href="@{/motos/update/{id}(id=${moto.id})}">Modifier</a>
                         <form th:action="@{/motos/delete/{id}(id=${moto.id})}" method="post" onsubmit="return confirm('Supprimer cette moto ?');">

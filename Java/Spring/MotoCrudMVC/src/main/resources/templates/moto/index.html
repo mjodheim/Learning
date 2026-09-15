@@ -56,7 +56,12 @@
                     <p class="text-secondary mb-1" th:text="${moto.cc + ' cc'}">0 cc</p>
                     <p class="fw-bold fs-5 mb-4" th:text="${moto.price + ' €'}">0.00 €</p>
 
-                    <a class="btn btn-outline-dark mt-auto" th:href="@{/motos/{id}(id=${moto.id})}">Voir la fiche</a>
+                    <div class="d-flex gap-2 mt-auto">
+                        <a class="btn btn-outline-dark flex-grow-1" th:href="@{/motos/{id}(id=${moto.id})}">Voir la fiche</a>
+                        <form th:action="@{/cart/add/{id}(id=${moto.id})}" method="post">
+                            <button class="btn btn-primary" type="submit">Au panier</button>
+                        </form>
+                    </div>
                 </div>
             </article>
         </div>
