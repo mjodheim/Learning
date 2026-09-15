@@ -18,55 +18,40 @@
         <div class="card-body">
             <form method="get"
                   th:action="@{/motos}"
+                  th:object="${filter}"
                   class="row g-3 align-items-end">
 
                 <div class="col-12 col-md-5">
-                    <label for="brand" class="form-label fw-semibold">
-                        Filtrer par marque
-                    </label>
-
-                    <select name="brand"
-                            id="brand"
+                    <label for="brand" class="form-label fw-semibold">Filtrer par marque</label>
+                    <select id="brand"
                             class="form-select"
+                            th:field="*{brand}"
                             onchange="this.form.submit()">
-
                         <option value="">Toutes les marques</option>
-
                         <option th:each="motoBrand : ${brands}"
                                 th:value="${motoBrand}"
-                                th:text="${motoBrand}"
-                                th:selected="${motoBrand == brand}">
+                                th:text="${motoBrand}">
                         </option>
                     </select>
                 </div>
 
                 <div class="col-12 col-md-5">
-                    <label for="category" class="form-label fw-semibold">
-                        Filtrer par catégorie
-                    </label>
-
-                    <select name="category"
-                            id="category"
+                    <label for="categoryId" class="form-label fw-semibold">Filtrer par catégorie</label>
+                    <select id="categoryId"
                             class="form-select"
+                            th:field="*{categoryId}"
                             onchange="this.form.submit()">
-
                         <option value="">Toutes les catégories</option>
-
                         <option th:each="motoCategory : ${categories}"
-                                th:value="${motoCategory.name}"
-                                th:text="${motoCategory.name}"
-                                th:selected="${motoCategory.name == category}">
+                                th:value="${motoCategory.id}"
+                                th:text="${motoCategory.name}">
                         </option>
                     </select>
                 </div>
 
                 <div class="col-12 col-md-2">
-                    <a class="btn btn-info w-120"
-                       th:href="@{/motos}">
-                        Réinitialiser
-                    </a>
+                    <a class="btn btn-info w-100" th:href="@{/motos}">Réinitialiser</a>
                 </div>
-
             </form>
         </div>
     </div>

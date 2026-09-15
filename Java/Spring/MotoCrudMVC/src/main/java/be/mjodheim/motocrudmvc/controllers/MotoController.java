@@ -1,18 +1,28 @@
 package be.mjodheim.motocrudmvc.controllers;
 
 import be.mjodheim.motocrudmvc.entities.Category;
+import be.mjodheim.motocrudmvc.entities.Equipment;
 import be.mjodheim.motocrudmvc.entities.Moto;
+import be.mjodheim.motocrudmvc.mappers.MotoMapper;
+import be.mjodheim.motocrudmvc.models.MotoFilter;
+import be.mjodheim.motocrudmvc.models.category.CategoryDto;
+import be.mjodheim.motocrudmvc.models.equipment.EquipmentDto;
+import be.mjodheim.motocrudmvc.models.moto.MotoForm;
+import be.mjodheim.motocrudmvc.models.moto.MotoIndexDto;
 import be.mjodheim.motocrudmvc.repositories.CategoryRepository;
+import be.mjodheim.motocrudmvc.repositories.EquipmentRepository;
 import be.mjodheim.motocrudmvc.repositories.MotoRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/motos")
@@ -21,42 +31,29 @@ public class MotoController {
 
     private final MotoRepository motoRepository;
     private final CategoryRepository categoryRepository;
+    private final EquipmentRepository equipmentRepository;
+    private final MotoMapper motoMapper;
 
     @GetMapping
     public String index(
-            @RequestParam(required = false) String brand,
-            @RequestParam(required = false) String category,
+            @ModelAttribute MotoFilter filter,
             Model model
     ) {
-        List<Moto> allMotos = motoRepository.findAll();
-
-        List<Moto> motos = new ArrayList<>(allMotos);
-
-        if (brand != null && !brand.isBlank()) {
-            motos = motos.stream()
-                    .filter(m -> brand.equalsIgnoreCase(m.getBrand()))
-                    .toList();
-        }
-
-        if (category != null && !category.isBlank()) {
-            motos = motos.stream()
-                    .filter(m -> category.equalsIgnoreCase(m.getCategory().getName()))
-                    .toList();
-        }
-
-        List<String> brands = allMotos.stream()
-                .map(Moto::getBrand)
-                .distinct()
-                .sorted()
+        List<MotoIndexDto> motos = motoRepository.findWithFilter(filter.brand(), filter.categoryId())
+                .stream()
+                .map(motoMapper::toIndexDto)
                 .toList();
 
-        List<Category> categories = categoryRepository.findAll();
+        List<CategoryDto> categories = categoryRepository.findAll()
+                .stream()
+                .map(motoMapper::toCategoryDto)
+                .sorted(Comparator.comparing(CategoryDto::name))
+                .toList();
 
         model.addAttribute("motos", motos);
-        model.addAttribute("brands", brands);
-        model.addAttribute("brand", brand);
+        model.addAttribute("brands", motoRepository.findAllBrands());
         model.addAttribute("categories", categories);
-        model.addAttribute("category", category);
+        model.addAttribute("filter", filter);
 
         return "moto/index";
     }
@@ -68,32 +65,33 @@ public class MotoController {
     ) {
         Moto moto = motoRepository.findById(id).orElseThrow();
 
-        model.addAttribute("moto", moto);
+        model.addAttribute("moto", motoMapper.toDetailsDto(moto));
         return "moto/details";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("moto", new Moto());
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("moto", new MotoForm());
+        addFormData(model);
+
         return "moto/create";
     }
 
     @PostMapping("/create")
     public String create(
-            @ModelAttribute Moto moto,
+            @Valid @ModelAttribute(name = "moto") MotoForm form,
             BindingResult bindingResult,
-            @RequestParam Long categoryId,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categories", categoryRepository.findAll());
+            addFormData(model);
             return "moto/create";
         }
 
-        Category category = categoryRepository.findById(categoryId).orElseThrow();
-        moto.setCategory(category);
+        Category category = categoryRepository.findById(form.getCategoryId()).orElseThrow();
+        Set<Equipment> equipments = getEquipments(form.getEquipmentIds());
 
+        Moto moto = motoMapper.toEntity(form, category, equipments);
         motoRepository.save(moto);
 
         return "redirect:/motos";
@@ -106,48 +104,69 @@ public class MotoController {
     ) {
         Moto moto = motoRepository.findById(id).orElseThrow();
 
-        model.addAttribute("moto", moto);
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("moto", motoMapper.toForm(moto));
+        model.addAttribute("motoId", id);
+        addFormData(model);
+
         return "moto/update";
     }
 
     @PostMapping("/update/{id}")
     public String update(
             @PathVariable Long id,
-            @ModelAttribute Moto moto,
+            @Valid @ModelAttribute(name = "moto") MotoForm form,
             BindingResult bindingResult,
-            @RequestParam Long categoryId,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("motoId", id);
+            addFormData(model);
             return "moto/update";
         }
 
-        Moto existingMoto = motoRepository.findById(id)
-                .orElseThrow();
+        Moto moto = motoRepository.findById(id).orElseThrow();
+        Category category = categoryRepository.findById(form.getCategoryId()).orElseThrow();
+        Set<Equipment> equipments = getEquipments(form.getEquipmentIds());
 
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow();
-
-        existingMoto.setBrand(moto.getBrand());
-        existingMoto.setModel(moto.getModel());
-        existingMoto.setCc(moto.getCc());
-        existingMoto.setImageUrl(moto.getImageUrl());
-        existingMoto.setCategory(category);
-        existingMoto.setDescription(moto.getDescription());
-
-        motoRepository.save(existingMoto);
+        motoMapper.updateEntity(moto, form, category, equipments);
+        motoRepository.save(moto);
 
         return "redirect:/motos/" + id;
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        Moto existingMoto = motoRepository.findById(id).orElseThrow();
+        if (!motoRepository.existsById(id)) {
+            throw new RuntimeException("Moto not found");
+        }
 
-        motoRepository.delete(existingMoto);
+        motoRepository.deleteById(id);
 
         return "redirect:/motos";
+    }
+
+    private void addFormData(Model model) {
+        List<CategoryDto> categories = categoryRepository.findAll()
+                .stream()
+                .map(motoMapper::toCategoryDto)
+                .sorted(Comparator.comparing(CategoryDto::name))
+                .toList();
+
+        List<EquipmentDto> equipments = equipmentRepository.findAll()
+                .stream()
+                .map(motoMapper::toEquipmentDto)
+                .sorted(Comparator.comparing(EquipmentDto::name))
+                .toList();
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("equipments", equipments);
+    }
+
+    private Set<Equipment> getEquipments(Set<Long> equipmentIds) {
+        if (equipmentIds == null || equipmentIds.isEmpty()) {
+            return new HashSet<>();
+        }
+
+        return new HashSet<>(equipmentRepository.findAllById(equipmentIds));
     }
 }
