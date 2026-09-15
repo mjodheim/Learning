@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-public class Category extends BaseEntity {
+public class Equipment extends BaseEntity {
 
     @Getter
     @Id
@@ -18,14 +18,14 @@ public class Category extends BaseEntity {
     private Long id;
 
     @Getter @Setter
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 80)
     private String name;
 
     @Getter
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Moto> motos = new ArrayList<>();
+    @ManyToMany(mappedBy = "equipments", fetch = FetchType.LAZY)
+    private Set<Moto> motos = new HashSet<>();
 
-    public Category(String name) {
+    public Equipment(String name) {
         this();
         this.name = name;
     }

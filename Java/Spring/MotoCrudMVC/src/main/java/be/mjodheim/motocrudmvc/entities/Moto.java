@@ -1,13 +1,16 @@
 package be.mjodheim.motocrudmvc.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor // ctor vide
-@EqualsAndHashCode @ToString
-public class Moto {
+public class Moto extends BaseEntity {
 
     @Getter
     @Id
@@ -23,7 +26,7 @@ public class Moto {
     private String model;
 
     @Getter @Setter
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private int cc;
 
     @Getter @Setter
@@ -35,10 +38,24 @@ public class Moto {
 
     @Getter @Setter
     @ManyToOne
-    @JoinColumn(name = "category_id",  nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    public Moto(String brand, String model, int cc, String imageUrl, String description, Category  category) {
+    @Getter @Setter
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "technical_sheet_id", unique = true)
+    private TechnicalSheet technicalSheet;
+
+    @Getter
+    @ManyToMany
+    @JoinTable(
+            name = "moto_equipment",
+            joinColumns = @JoinColumn(name = "moto_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id")
+    )
+    private Set<Equipment> equipments = new HashSet<>();
+
+    public Moto(String brand, String model, int cc, String imageUrl, String description, Category category) {
         this();
         this.brand = brand;
         this.model = model;
@@ -46,5 +63,13 @@ public class Moto {
         this.imageUrl = imageUrl;
         this.description = description;
         this.category = category;
+    }
+
+    public void setEquipments(Set<Equipment> equipments) {
+        this.equipments.clear();
+
+        if (equipments != null) {
+            this.equipments.addAll(equipments);
+        }
     }
 }
