@@ -12,50 +12,32 @@
     <div class="card detail-card overflow-hidden">
         <div class="row g-0">
             <div class="col-12 col-lg-7">
-                <img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
-                     th:src="${moto.imageUrl}"
-                     th:alt="${moto.brand + ' ' + moto.model}"
-                     class="moto-image-detail">
-
-                <div th:unless="${moto.imageUrl != null && !moto.imageUrl.isBlank()}"
-                     class="moto-placeholder h-100" style="min-height: 320px;" aria-label="Aucune image">
-                    🏍️
-                </div>
+                <img th:if="${moto.imageUrl != null && !moto.imageUrl.isBlank()}" th:src="${moto.imageUrl}" th:alt="${moto.brand + ' ' + moto.model}" class="moto-image-detail">
+                <div th:unless="${moto.imageUrl != null && !moto.imageUrl.isBlank()}" class="moto-placeholder h-100" style="min-height: 320px;" aria-label="Aucune image">🏍️</div>
             </div>
 
             <div class="col-12 col-lg-5">
                 <div class="card-body p-4 p-md-5 h-100 d-flex flex-column">
                     <div class="mb-3">
-                        <span class="badge rounded-pill category-badge"
-                              th:text="${moto.category.name}">Catégorie</span>
+                        <span class="badge rounded-pill category-badge" th:text="${moto.category.name}">Catégorie</span>
                     </div>
 
                     <h1 class="page-title fw-bold mb-2" th:text="${moto.brand + ' ' + moto.model}">Moto</h1>
-                    <p class="fs-5 text-secondary mb-4" th:text="${moto.cc + ' cc'}">0 cc</p>
-                    <p class="text-secondary mb-4"
-                       th:if="${moto.description != null && !moto.description.isBlank()}"
-                       th:text="${moto.description}">Description</p>
+                    <p class="fs-5 text-secondary mb-1" th:text="${moto.cc + ' cc'}">0 cc</p>
+                    <p class="fs-4 fw-bold mb-4" th:text="${moto.price + ' €'}">0.00 €</p>
+                    <p class="text-secondary mb-4" th:if="${moto.description != null && !moto.description.isBlank()}" th:text="${moto.description}">Description</p>
 
                     <div class="mb-4" th:if="${moto.technicalSheet != null}">
                         <h2 class="h6 fw-bold text-uppercase mb-3">Fiche technique</h2>
                         <div class="row g-2 small">
                             <div class="col-4" th:if="${moto.technicalSheet.horsepower != null}">
-                                <div class="border rounded p-2 h-100">
-                                    <span class="text-secondary d-block">Puissance</span>
-                                    <strong th:text="${moto.technicalSheet.horsepower + ' ch'}">0 ch</strong>
-                                </div>
+                                <div class="border rounded p-2 h-100"><span class="text-secondary d-block">Puissance</span><strong th:text="${moto.technicalSheet.horsepower + ' ch'}">0 ch</strong></div>
                             </div>
                             <div class="col-4" th:if="${moto.technicalSheet.weightKg != null}">
-                                <div class="border rounded p-2 h-100">
-                                    <span class="text-secondary d-block">Poids</span>
-                                    <strong th:text="${moto.technicalSheet.weightKg + ' kg'}">0 kg</strong>
-                                </div>
+                                <div class="border rounded p-2 h-100"><span class="text-secondary d-block">Poids</span><strong th:text="${moto.technicalSheet.weightKg + ' kg'}">0 kg</strong></div>
                             </div>
                             <div class="col-4" th:if="${moto.technicalSheet.tankCapacity != null}">
-                                <div class="border rounded p-2 h-100">
-                                    <span class="text-secondary d-block">Réservoir</span>
-                                    <strong th:text="${moto.technicalSheet.tankCapacity + ' L'}">0 L</strong>
-                                </div>
+                                <div class="border rounded p-2 h-100"><span class="text-secondary d-block">Réservoir</span><strong th:text="${moto.technicalSheet.tankCapacity + ' L'}">0 L</strong></div>
                             </div>
                         </div>
                     </div>
@@ -63,19 +45,13 @@
                     <div class="mb-4" th:if="${!#lists.isEmpty(moto.equipments)}">
                         <h2 class="h6 fw-bold text-uppercase mb-3">Équipements</h2>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="badge text-bg-light border"
-                                  th:each="equipment : ${moto.equipments}"
-                                  th:text="${equipment.name}">Équipement</span>
+                            <span class="badge text-bg-light border" th:each="equipment : ${moto.equipments}" th:text="${equipment.name}">Équipement</span>
                         </div>
                     </div>
 
                     <div class="mt-auto d-flex flex-wrap gap-2">
-                        <a class="btn btn-primary"
-                           th:href="@{/motos/update/{id}(id=${moto.id})}">Modifier</a>
-
-                        <form th:action="@{/motos/delete/{id}(id=${moto.id})}"
-                              method="post"
-                              onsubmit="return confirm('Supprimer cette moto ?');">
+                        <a class="btn btn-primary" th:href="@{/motos/update/{id}(id=${moto.id})}">Modifier</a>
+                        <form th:action="@{/motos/delete/{id}(id=${moto.id})}" method="post" onsubmit="return confirm('Supprimer cette moto ?');">
                             <button class="btn btn-outline-danger" type="submit">Supprimer</button>
                         </form>
                     </div>

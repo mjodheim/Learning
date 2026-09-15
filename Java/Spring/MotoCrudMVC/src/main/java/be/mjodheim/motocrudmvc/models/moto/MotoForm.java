@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,10 @@ public class MotoForm {
     @Min(50)
     @Max(2500)
     private Integer cc;
+
+    @NotNull
+    @DecimalMin("0.01")
+    private BigDecimal price;
 
     @Size(max = 255)
     private String imageUrl;

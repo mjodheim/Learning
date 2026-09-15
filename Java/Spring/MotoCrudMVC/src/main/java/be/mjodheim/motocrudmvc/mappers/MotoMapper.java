@@ -25,6 +25,7 @@ public class MotoMapper {
                 moto.getBrand(),
                 moto.getModel(),
                 moto.getCc(),
+                moto.getPrice(),
                 moto.getImageUrl(),
                 toCategoryDto(moto.getCategory())
         );
@@ -36,6 +37,7 @@ public class MotoMapper {
                 moto.getBrand(),
                 moto.getModel(),
                 moto.getCc(),
+                moto.getPrice(),
                 moto.getImageUrl(),
                 moto.getDescription(),
                 toCategoryDto(moto.getCategory()),
@@ -53,6 +55,7 @@ public class MotoMapper {
         form.setBrand(moto.getBrand());
         form.setModel(moto.getModel());
         form.setCc(moto.getCc());
+        form.setPrice(moto.getPrice());
         form.setImageUrl(moto.getImageUrl());
         form.setDescription(moto.getDescription());
         form.setCategoryId(moto.getCategory().getId());
@@ -76,6 +79,7 @@ public class MotoMapper {
                 form.getBrand(),
                 form.getModel(),
                 form.getCc(),
+                form.getPrice(),
                 form.getImageUrl(),
                 form.getDescription(),
                 category
@@ -91,6 +95,7 @@ public class MotoMapper {
         moto.setBrand(form.getBrand());
         moto.setModel(form.getModel());
         moto.setCc(form.getCc());
+        moto.setPrice(form.getPrice());
         moto.setImageUrl(form.getImageUrl());
         moto.setDescription(form.getDescription());
         moto.setCategory(category);

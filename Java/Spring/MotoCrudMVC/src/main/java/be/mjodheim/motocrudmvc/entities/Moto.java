@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +29,10 @@ public class Moto extends BaseEntity {
     @Getter @Setter
     @Column(nullable = false)
     private int cc;
+
+    @Getter @Setter
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     @Getter @Setter
     private String imageUrl;
@@ -55,11 +60,12 @@ public class Moto extends BaseEntity {
     )
     private Set<Equipment> equipments = new HashSet<>();
 
-    public Moto(String brand, String model, int cc, String imageUrl, String description, Category category) {
+    public Moto(String brand, String model, int cc, BigDecimal price, String imageUrl, String description, Category category) {
         this();
         this.brand = brand;
         this.model = model;
         this.cc = cc;
+        this.price = price;
         this.imageUrl = imageUrl;
         this.description = description;
         this.category = category;
