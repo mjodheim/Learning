@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -59,6 +61,9 @@ public class Moto extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "equipment_id")
     )
     private Set<Equipment> equipments = new HashSet<>();
+
+    @OneToMany(mappedBy = "moto", cascade = CascadeType.REMOVE)
+    private List<CartLine> cartLines = new ArrayList<>();
 
     public Moto(String brand, String model, int cc, BigDecimal price, String imageUrl, String description, Category category) {
         this();
